@@ -37,6 +37,13 @@ class DatabaseSeeder extends Seeder
             'password'  => bcrypt('12345'),
             'level'     => 'pengunjung'
         ]);
+
+        User::create([
+            'name'      => 'Rakev Tionardi',
+            'email'     => 'rakev@gmail.com',
+            'password'  => bcrypt('12345'),
+            'level'     => 'pengunjung'
+        ]);
         
         User::create([
             'name'      => 'Operator Karantina',
@@ -47,10 +54,12 @@ class DatabaseSeeder extends Seeder
 
         Antrian::create([
             'no_antrian' => 'U1',
+            'email' => 'aul@gmail.com',
             'tanggal_antrian' => '2023-01-31',
             'user_id' => 2,
             'no_ppk' => '33741298720001',
-            'jenis_layanan' => 'karantina'
+            'jenis_layanan' => 'karantina',
+            'status' => 'Menunggu'
         ]);
 
         // User::create([

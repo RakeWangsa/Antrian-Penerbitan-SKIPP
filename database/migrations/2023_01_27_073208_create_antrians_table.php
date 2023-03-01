@@ -17,11 +17,13 @@ return new class extends Migration
         Schema::create('antrians', function (Blueprint $table) {
             $table->id();
             $table->string('no_antrian');
+            $table->string('email');
             $table->foreignId('user_id')->nullable();
             $table->string('no_ppk');
             $table->enum('jenis_layanan', ['karantina', 'mutu', 'cs']);
             $table->boolean('is_call')->default(false);
             $table->datetime('tanggal_antrian')->default(Carbon::now());
+            $table->string('status');
             $table->timestamps();
         });
     }
