@@ -14,24 +14,36 @@ class AmbilAntrianController extends Controller
 {
     public function index()
     {
+        $email=session('email');
+        $skrgmin10 = Carbon::now()->addHours(7)->subMinutes(10);
+        $Antrianku = DB::table('antrians')
+            ->where('tanggal_antrian', '>', $skrgmin10)
+            ->where('email', $email)
+            ->orderBy('id', 'asc')
+            ->select('no_antrian', 'no_ppk', 'tanggal_antrian')
+            ->get();
+
         return view('antrian.ambilAntrian', [
             "title" => "Ambil Antrian",
-            'active' => 'antrian'
+            'active' => 'antrian',
+            'antrianku' => $Antrianku
         ]);
     }
 
     public function ambil(Request $request){
-        $antrian = new AntriansController();
+        //$antrian = new AntriansController();
+        $email=session('email');
 
         $messages = [
             'required' => ':attribute wajib diisi ',
-            'noppk.required' => 'Nomor Pengajuan PPK harus diisi!',
+            'no_ppk.required' => 'Nomor Pengajuan PPK harus diisi!',
             'jenislayanan.required' => 'Pilih Jenis Layanan!',
-            'jenislayanan.not_in' => 'Pilih Jenis Layanan!'
+            'jenislayanan.not_in' => 'Pilih Jenis Layanan!',
+            'no_ppk.unique' => 'Nomor Pengajuan PPK sudah digunakan'
         ];
 
         $this->validate($request, [
-            "noppk" => 'required',
+            "no_ppk" => 'required|unique:antrians',
             'jenislayanan' => ['required', Rule::notIn(['Pilih Jenis Layanan!'])],
         ], $messages);
 
@@ -97,10 +109,12 @@ class AmbilAntrianController extends Controller
             }
             Antrian::insert([
                 'no_antrian' => $no_antriK,
-                'no_ppk' => $request->noppk,
+                'email' => $email,
+                'no_ppk' => $request->no_ppk,
                 'jenis_layanan'=> $request->jenislayanan,
                 "tanggal_antrian"=> $inputwaktuK,
-                "created_at"=> $skrg
+                "created_at"=> $skrg,
+                'status'=>'Menunggu'
             ]);
         }
         elseif ($request->jenislayanan == 'mutu'){
@@ -120,10 +134,12 @@ class AmbilAntrianController extends Controller
             }
             Antrian::insert([
                 'no_antrian' => $no_antriM,
-                'no_ppk' => $request->noppk,
+                'email' => $email,
+                'no_ppk' => $request->no_ppk,
                 'jenis_layanan'=> $request->jenislayanan,
                 "tanggal_antrian" => $inputwaktuM,
-                "created_at"=> $skrg
+                "created_at"=> $skrg,
+                'status'=>'Menunggu'
             ]);
         }
         else{
@@ -143,13 +159,15 @@ class AmbilAntrianController extends Controller
             }       
             Antrian::insert([
                 'no_antrian' => $no_antriCS,
-                'no_ppk' => $request->noppk,
+                'email' => $email,
+                'no_ppk' => $request->no_ppk,
                 'jenis_layanan'=> $request->jenislayanan,
                 "tanggal_antrian" => $inputwaktuCS,
-                "created_at"=> $skrg
+                "created_at"=> $skrg,
+                'status'=>'Menunggu'
             ]);
         }
-        return redirect('/dashboard')->with('success');
+        return redirect('/ambil/antrian')->with('success');
     }
     public function tampil(Request $request){
         
@@ -239,4 +257,72 @@ class AmbilAntrianController extends Controller
             'panggilCS'=> $panggilCS,
         ]);
     }
+
+    public function cetakAntrian()
+    {
+
+        $no_ppk = request()->segment(2);
+
+        $cetak = DB::table('antrians')
+        ->where('no_ppk', '=', $no_ppk)
+        ->select('no_antrian', 'no_ppk', 'jenis_layanan', 'tanggal_antrian', 'email')
+        ->get();
+
+        return view('antrian.cetakAntrian', [
+            "title" => "Cetak Antrian",
+            'active' => 'cetak antrian',
+            'cetak' => $cetak
+        ]);
+    }
+
+    public function editAntrian()
+    {
+        $no_ppk = request()->segment(2);
+
+        return view('antrian.editAntrian', [
+            "title" => "Edit Antrian",
+            'active' => 'edit antrian',
+            'no_ppk' => $no_ppk
+        ]);
+    }
+
+    public function edit(Request $request)
+    {
+        $messages = [
+            'required' => ':attribute wajib diisi ',
+            'no_ppk.required' => 'Nomor Pengajuan PPK harus diisi!',
+            'no_ppk.unique' => 'Nomor Pengajuan PPK sudah digunakan'
+        ];
+
+        $this->validate($request, [
+            "no_ppk" => 'required|unique:antrians',
+        ], $messages);
+
+        Antrian::where('no_ppk', $request->no_ppklama)->update([
+            "no_ppk"=> $request->no_ppk,
+        ]);
+        return redirect('/ambil/antrian')->with('success');
+    }
+
+    public function hapusAntrian(Request $request)
+    {
+        $no_ppk = request()->segment(2);
+        $skrg = Carbon::now()->addHours(7);
+        $layanan = DB::table('antrians')
+            ->where('no_ppk', $no_ppk)
+            ->pluck('jenis_layanan')
+            ->first();
+
+        Antrian::where('jenis_layanan', $layanan)
+        ->where('tanggal_antrian', '>', $skrg)
+        ->update([
+             'tanggal_antrian' => DB::raw("DATEADD(minute, -10, CONVERT(datetime, tanggal_antrian, 121))"),
+             'updated_at' => Carbon::now()
+         ]);
+
+        Antrian::where('no_ppk', $no_ppk)->delete();
+
+        return redirect('/ambil/antrian')->with('success');
+    }
+    
 }

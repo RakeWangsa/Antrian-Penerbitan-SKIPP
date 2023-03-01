@@ -20,6 +20,10 @@ Route::post('/register', [RegisterController::class, 'store']);
 Route::get('/dashboard', [DashboardController::class, 'tampil'])->name('dashboard');
 Route::get('/ambil/antrian', [AmbilAntrianController::class, 'index'])->middleware('auth');
 Route::get('/ambil/antrian/submit', [AmbilAntrianController::class, 'ambil'])->name('ambilantrian')->middleware('auth');
+Route::get('/cetakAntrian/{no_ppk}', [AmbilAntrianController::class, 'cetakAntrian'])->name('cetakAntrian')->middleware('auth');
+Route::get('/editAntrian/{no_ppk}', [AmbilAntrianController::class, 'editAntrian'])->name('editAntrian')->middleware('auth');
+Route::get('/editAntrian/submit/{no_ppk}', [AmbilAntrianController::class, 'edit'])->name('edit')->middleware('auth');
+Route::get('/hapusAntrian/{no_ppk}', [AmbilAntrianController::class, 'hapusAntrian'])->name('hapusAntrian')->middleware('auth');
 Route::get('/daftar/antrian', [DaftarAntrianController::class, 'tampil']);
 
 Route::group(['middleware' => ['auth', 'ceklevel:opk']], function() {

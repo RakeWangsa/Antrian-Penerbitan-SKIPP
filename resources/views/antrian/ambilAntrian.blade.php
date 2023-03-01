@@ -32,11 +32,11 @@
                         @endif
                     </div>
                     <form class="row g-3 mt-3" method="GET" action="{{route('ambilantrian')}}">
-                        <div class="col-md-12"> <label for="noppk" class="form-label">Masukkan Nomor Pengajuan PPK</label> <input type="text" class="form-control" id="noppk" name="noppk" value="{{ old('noppk') }}"></div>
+                        <div class="col-md-12"> <label for="noppk" class="form-label">Masukkan Nomor Pengajuan PPK</label> <input type="text" class="form-control" id="no_ppk" name="no_ppk" value="{{ old('no_ppk') }}"></div>
                         <div class="col-md-12">
                             <label for="jenislayanan" class="form-label">Pilih Jenis Layanan</label> 
                             <select id="jenislayanan" class="form-select" name="jenislayanan">
-                                <option>Pilih Jenis Layanan</option>
+                                <option>Pilih Jenis Layanan!</option>
                                 <option value="karantina">Karantina</option>
                                 <option value="mutu">Mutu</option>
                                 <option value="cs">Customer Service</option>
@@ -54,31 +54,28 @@
                      <table class="table table-bordered">
                         <thead>
                            <tr class="text-center">
-                              <th scope="col">#</th>
-                              <th scope="col">Name</th>
+                              <th scope="col">No</th>
+                              <th scope="col">No Antrian</th>
                               <th scope="col">No PPK</th>
                               <th scope="col">Waktu Antri</th>
                               <th scope="col">Action</th>
                            </tr>
                         </thead>
                         <tbody>
+                            @php($no=1)
+                            @foreach ($antrianku as $item)
                            <tr>
-                              <th scope="row" class="text-center">1</th>
-                              <td>Brandon Jacob</td>
-                              <td>12345</td>
-                              <td>12345</td>
+                              <th scope="row" class="text-center">{{ $no++ }}</th>
+                              <td>{{ $item->no_antrian }}</td>
+                              <td>{{ $item->no_ppk }}</td>
+                              <td>{{ $item->tanggal_antrian }}</td>
                               <td class="text-center">
-                                <a class="btn btn-success" style="border-radius: 100px;" a href="#"><i class="bi bi-printer"></i></a>
-                                <a class="btn btn-warning" style="border-radius: 100px;" a href="#"><i class="bi bi-pencil-square text-white"></i></a>
-                                <form action="#" method="post" class="d-inline">
-                                    @method('delete')
-                                    @csrf
-                                    <button class="btn btn-danger" style="border-radius: 100px;" onclick="return confirm('Are you sure?')">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </form>
+                                <a class="btn btn-success" style="border-radius: 100px;" a href="{{ route('cetakAntrian', ['no_ppk' => $item->no_ppk]) }}"><i class="bi bi-printer"></i></a>
+                                <a class="btn btn-warning" style="border-radius: 100px;" a href="{{ route('editAntrian', ['no_ppk' => $item->no_ppk]) }}"><i class="bi bi-pencil-square text-white"></i></a>
+                                <a class="btn btn-danger" style="border-radius: 100px;" onclick="return confirm('Apakah anda yakin?')" a href="{{ route('hapusAntrian', ['no_ppk' => $item->no_ppk]) }}"><i class="bi bi-trash"></i></a>
                               </td>
                            </tr>
+                           @endforeach
                         </tbody>
                     </table>
                 </div>
