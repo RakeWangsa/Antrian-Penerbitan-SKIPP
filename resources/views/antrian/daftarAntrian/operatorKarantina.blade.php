@@ -2,7 +2,7 @@
 
 @section('container')
 <div class="pagetitle mt-3">
-   <h1>Daftar Antrian</h1>
+   <h1>Daftar Antrian Karantina</h1>
    <nav>
    <ol class="breadcrumb">
        <li class="breadcrumb-item"><a href="/dashboard/operator/karantina">Home</a></li>
@@ -10,54 +10,204 @@
    </ol>
    </nav>
 </div>
+
+<style>
+   .table-container {
+     max-height: 200px;
+     overflow-y: scroll;
+   }
+   
+   table {
+     width: 100%;
+     border-collapse: collapse;
+   }
+   
+   th, td {
+     padding: 8px;
+     text-align: left;
+     border-bottom: 1px solid #ddd;
+   }
+   
+   th {
+     background-color: #c3c3c3;
+     position: sticky;
+     top: 0;
+   }
+   
+   </style>
+
+
 <div class="row">
-    <div class="card col-md-12 mt-2">
+    <div class="card col-md-12 mt-2 pb-4">
          <div class="card-body">
              <h5 class="card-title">Daftar Antrian</h5>
-             <table class="table table-bordered">
+             <div class="table-container border">
+             <table>
                 <thead>
                    <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Name</th>
+                      <th scope="col">No</th>
+                      <th scope="col">No Antrian</th>
                       <th scope="col">No PPK</th>
                       <th scope="col">Waktu Antri</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Status</th>
                       <th scope="col">Action</th>
                    </tr>
                 </thead>
+                
                 <tbody>
+                  @php($no=1)
+                  @if(count($AntrianK) > 0)
+                  @foreach($AntrianK as $item)
                    <tr>
-                      <th scope="row">1</th>
-                      <td>Brandon Jacob</td>
-                      <td>12345</td>
-                      <td>2016-05-25</td>
+                      <td scope="row">{{ $no++ }}</td>
+                      <td>{{ $item->no_antrian }}</td>
+                      <td>{{ $item->no_ppk }}</td>
+                      <td>{{ $item->tanggal_antrian }}</td>
+                      <td>{{ $item->email }}</td>
+                      <td>{{ $item->status }}</td>
+                      <td>
+                        <a class="btn btn-success" style="border-radius: 100px;" a href="{{ route('editStatus', ['no_ppk' => $item->no_ppk]) }}"><i class="bi bi-pencil-square text-white"></i></a>
+                      </td>
                    </tr>
+                   @endforeach
+                   @else
                    <tr>
-                      <th scope="row">2</th>
-                      <td>Bridie Kessler</td>
-                      <td>67891</td>
-                      <td>2014-12-05</td>
+                     <td colspan="6" class="text-center">Belum ada antrian</td>
                    </tr>
-                   <tr>
-                      <th scope="row">3</th>
-                      <td>Ashleigh Langosh</td>
-                      <td>01234</td>
-                      <td>2011-08-12</td>
-                   </tr>
-                   <tr>
-                      <th scope="row">4</th>
-                      <td>Angus Grady</td>
-                      <td>56789</td>
-                      <td>2012-06-11</td>
-                   </tr>
-                   <tr>
-                      <th scope="row">5</th>
-                      <td>Raheem Lehner</td>
-                      <td>01234</td>
-                      <td>2011-04-19</td>
-                   </tr>
+                   @endif
                 </tbody>
              </table>
+            </div>
          </div>
-    </div>
+      </div>
+
+      <div class="card col-md-12 mt-2 pb-4">
+         <div class="card-body">
+             <h5 class="card-title">Sudah Dilayani</h5>
+             <div class="table-container border">
+             <table>
+                <thead>
+                   <tr>
+                      <th scope="col">No</th>
+                      <th scope="col">No Antrian</th>
+                      <th scope="col">No PPK</th>
+                      <th scope="col">Waktu Antri</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Action</th>
+                   </tr>
+                </thead>
+                
+                <tbody>
+                  @php($no=1)
+                  @if(count($SudahAntriK) > 0)
+                  @foreach($SudahAntriK as $item)
+                   <tr>
+                      <td scope="row">{{ $no++ }}</td>
+                      <td>{{ $item->no_antrian }}</td>
+                      <td>{{ $item->no_ppk }}</td>
+                      <td>{{ $item->tanggal_antrian }}</td>
+                      <td>{{ $item->email }}</td>
+                      <td>{{ $item->status }}</td>
+                      <td>
+                        <a class="btn btn-success" style="border-radius: 100px;" a href="{{ route('editStatus', ['no_ppk' => $item->no_ppk]) }}"><i class="bi bi-pencil-square text-white"></i></a>
+                      </td>
+                   </tr>
+                   @endforeach
+                   @else
+                   <tr>
+                     <td colspan="6" class="text-center">Belum ada yang dilayani</td>
+                   </tr>
+                   @endif
+                </tbody>
+             </table>
+            </div>
+         </div>
+      </div>
+
+
+
+      {{-- <div class="card col-md-12 pb-4">
+         <div class="card-body">
+            <h5 class="card-title">Daftar Antrian Mutu</h5>
+            <div class="table-container border">
+            <table>
+               <thead>
+                  <tr>
+                     <th scope="col">No</th>
+                     <th scope="col">No Antrian</th>
+                     <th scope="col">No PPK</th>
+                     <th scope="col">Waktu Antri</th>
+                     <th scope="col">Email</th>
+                     <th scope="col">Status</th>
+                     <th scope="col">Action</th>
+                  </tr>
+               </thead>
+               
+               <tbody>
+                 @php($no=1)
+                 @if(count($AntrianM) > 0)
+                  @foreach($AntrianM as $item)
+                   <tr>
+                      <td scope="row">{{ $no++ }}</td>
+                      <td>{{ $item->no_antrian }}</td>
+                      <td>{{ $item->no_ppk }}</td>
+                      <td>{{ $item->tanggal_antrian }}</td>
+                      <td>{{ $item->email }}</td>
+                      <td>{{ $item->status }}</td>
+                   </tr>
+                   @endforeach
+                   @else
+                   <tr>
+                     <td colspan="6" class="text-center">Belum ada antrian</td>
+                   </tr>
+                   @endif
+               </tbody>
+            </table>
+           </div>
+        </div>
+      </div> --}}
+
+      {{-- <div class="card col-md-12 pb-4">
+        <div class="card-body">
+         <h5 class="card-title">Daftar Antrian Customer Service</h5>
+         <div class="table-container border">
+         <table>
+            <thead>
+               <tr>
+                  <th scope="col">No</th>
+                  <th scope="col">No Antrian</th>
+                  <th scope="col">No PPK</th>
+                  <th scope="col">Waktu Antri</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Action</th>
+               </tr>
+            </thead>
+            
+            <tbody>
+              @php($no=1)
+              @if(count($AntrianCS) > 0)
+                  @foreach($AntrianCS as $item)
+                   <tr>
+                      <td scope="row">{{ $no++ }}</td>
+                      <td>{{ $item->no_antrian }}</td>
+                      <td>{{ $item->no_ppk }}</td>
+                      <td>{{ $item->tanggal_antrian }}</td>
+                      <td>{{ $item->email }}</td>
+                      <td>{{ $item->status }}</td>
+                   </tr>
+                   @endforeach
+                   @else
+                   <tr>
+                     <td colspan="6" class="text-center">Belum ada antrian</td>
+                   </tr>
+                   @endif
+            </tbody>
+         </table>
+        </div>
+     </div>
+   </div> --}}
 </div>
 @endsection
