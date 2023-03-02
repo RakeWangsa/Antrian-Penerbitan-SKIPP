@@ -29,8 +29,12 @@ Route::get('/daftar/antrian', [DaftarAntrianController::class, 'tampil']);
 Route::group(['middleware' => ['auth', 'ceklevel:opk']], function() {
     route::get('/dashboard/operator/karantina', [DashboardController::class, 'dash_opk']);
     Route::get('/daftar/antrian/karantina', [DaftarAntrianController::class, 'da_opk']);
-    Route::get('/editStatus/{no_ppk}', [DaftarAntrianController::class, 'editStatus'])->name('editStatus')->middleware('auth');
-    Route::get('/submitStatus/{no_ppk}', [DaftarAntrianController::class, 'submitStatus'])->name('submitStatus')->middleware('auth');
+    Route::get('/statusDiproses/{no_ppk}', [DaftarAntrianController::class, 'statusDiproses'])->name('statusDiproses')->middleware('auth');
+    Route::get('/statusRecall/{no_ppk}', [DaftarAntrianController::class, 'statusRecall'])->name('statusRecall')->middleware('auth');
+    Route::get('/statusCancel/{no_ppk}', [DaftarAntrianController::class, 'statusCancel'])->name('statusCancel')->middleware('auth');
+
+    // Route::get('/editStatus/{no_ppk}', [DaftarAntrianController::class, 'editStatus'])->name('editStatus')->middleware('auth');
+    // Route::get('/submitStatus/{no_ppk}', [DaftarAntrianController::class, 'submitStatus'])->name('submitStatus')->middleware('auth');
 });
 
 Route::group(['middleware' => ['auth', 'ceklevel:opm']], function() {

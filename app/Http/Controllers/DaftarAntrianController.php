@@ -140,20 +140,50 @@ class DaftarAntrianController extends Controller
         ]);
     }
 
-    public function editStatus()
+    // public function editStatus()
+    // {
+    //     $no_ppk = request()->segment(2);
+
+    //     return view('antrian.editStatus', [
+    //         "title" => "Edit Status",
+    //         'active' => 'edit status',
+    //         'no_ppk' => $no_ppk
+    //     ]);
+    // }
+    // public function submitStatus(Request $request)
+    // {
+    //     Antrian::where('no_ppk', $request->no_ppk)->update([
+    //         "status"=> $request->status,
+    //     ]);
+    //     return redirect('/daftar/antrian/karantina')->with('success');
+    // }
+
+    public function statusDiproses()
     {
         $no_ppk = request()->segment(2);
 
-        return view('antrian.editStatus', [
-            "title" => "Edit Status",
-            'active' => 'edit status',
-            'no_ppk' => $no_ppk
+        Antrian::where('no_ppk', $no_ppk)->update([
+            "status"=>"Diproses"
         ]);
+        return redirect('/daftar/antrian/karantina')->with('success');
     }
-    public function submitStatus(Request $request)
+
+    public function statusRecall()
     {
-        Antrian::where('no_ppk', $request->no_ppk)->update([
-            "status"=> $request->status,
+        $no_ppk = request()->segment(2);
+
+        Antrian::where('no_ppk', $no_ppk)->update([
+            "status"=>"Recall"
+        ]);
+        return redirect('/daftar/antrian/karantina')->with('success');
+    }
+
+    public function statusCancel()
+    {
+        $no_ppk = request()->segment(2);
+
+        Antrian::where('no_ppk', $no_ppk)->update([
+            "status"=>"Cancel"
         ]);
         return redirect('/daftar/antrian/karantina')->with('success');
     }

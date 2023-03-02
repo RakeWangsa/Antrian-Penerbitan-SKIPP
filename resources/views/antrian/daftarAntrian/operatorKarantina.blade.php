@@ -67,7 +67,9 @@
                       <td>{{ $item->email }}</td>
                       <td>{{ $item->status }}</td>
                       <td>
-                        <a class="btn btn-success" style="border-radius: 100px;" a href="{{ route('editStatus', ['no_ppk' => $item->no_ppk]) }}"><i class="bi bi-pencil-square text-white"></i></a>
+                        <a class="btn btn-primary" style="border-radius: 100px;" a href="{{ route('statusDiproses', ['no_ppk' => $item->no_ppk]) }}"><i class="bi bi-check-circle text-white"></i></a>
+                        <a class="btn btn-warning" style="border-radius: 100px;" a href="{{ route('statusRecall', ['no_ppk' => $item->no_ppk]) }}"><i class="bi bi-telephone-forward text-white"></i></a>
+                        <a class="btn btn-danger" style="border-radius: 100px;" a href="{{ route('statusCancel', ['no_ppk' => $item->no_ppk]) }}"><i class="bi bi-x-circle text-white"></i></a>
                       </td>
                    </tr>
                    @endforeach
@@ -111,7 +113,9 @@
                       <td>{{ $item->email }}</td>
                       <td>{{ $item->status }}</td>
                       <td>
-                        <a class="btn btn-success" style="border-radius: 100px;" a href="{{ route('editStatus', ['no_ppk' => $item->no_ppk]) }}"><i class="bi bi-pencil-square text-white"></i></a>
+                        <a class="btn btn-primary" style="border-radius: 100px;" a href="{{ route('statusDiproses', ['no_ppk' => $item->no_ppk]) }}"><i class="bi bi-check-circle text-white"></i></a>
+                        <a class="btn btn-warning" style="border-radius: 100px;" a href="{{ route('statusRecall', ['no_ppk' => $item->no_ppk]) }}"><i class="bi bi-telephone-forward text-white"></i></a>
+                        <a class="btn btn-danger" style="border-radius: 100px;" a href="{{ route('statusCancel', ['no_ppk' => $item->no_ppk]) }}"><i class="bi bi-x-circle text-white"></i></a>
                       </td>
                    </tr>
                    @endforeach
