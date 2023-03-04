@@ -8,6 +8,8 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use App\Models\Antrian;
+use Illuminate\Support\Facades\Auth;
+
 
 class DaftarAntrianController extends Controller
 {
@@ -93,14 +95,44 @@ class DaftarAntrianController extends Controller
             ->orderBy('id', 'desc')
             ->select('no_antrian', 'no_ppk', 'tanggal_antrian', 'email', 'status')
             ->get();
+        
 
+        return view('antrian.daftarAntrian.operatorKarantina', [
+            'title' => 'Daftar Antrian',
+            'active' => 'daftar antrian',
+            'AntrianK' => $AntrianK,
+            'SudahAntriK' => $SudahAntriK,
+
+        ]);
+    }
+    public function da_opm()
+    {
+        $skrgmin10 = Carbon::now()->addHours(7)->subMinutes(10);
         $AntrianM = DB::table('antrians')
             ->where('tanggal_antrian', '>', $skrgmin10)
             ->where('jenis_layanan', 'mutu')
             ->orderBy('id', 'asc')
             ->select('no_antrian', 'no_ppk', 'tanggal_antrian', 'email', 'status')
             ->get();
-        
+
+        $SudahAntriM = DB::table('antrians')
+            ->where('tanggal_antrian', '<', $skrgmin10)
+            ->where('jenis_layanan', 'mutu')
+            ->orderBy('id', 'desc')
+            ->select('no_antrian', 'no_ppk', 'tanggal_antrian', 'email', 'status')
+            ->get();
+
+        return view('antrian.daftarAntrian.operatorMutu', [
+            'title' => 'Daftar Antrian',
+            'active' => 'daftar antrian',
+            'AntrianM' => $AntrianM,
+            'SudahAntriM' => $SudahAntriM,
+
+        ]);
+    }
+    public function da_ocs()
+    {
+        $skrgmin10 = Carbon::now()->addHours(7)->subMinutes(10);
         $AntrianCS = DB::table('antrians')
             ->where('tanggal_antrian', '>', $skrgmin10)
             ->where('jenis_layanan', 'cs')
@@ -108,28 +140,19 @@ class DaftarAntrianController extends Controller
             ->select('no_antrian', 'no_ppk', 'tanggal_antrian', 'email', 'status')
             ->get();
 
-        return view('antrian.daftarAntrian.operatorKarantina', [
-            'title' => 'Daftar Antrian',
-            'active' => 'daftar antrian',
-            'AntrianK' => $AntrianK,
-            'SudahAntriK' => $SudahAntriK,
-            'AntrianM' => $AntrianM,
-            'AntrianCS' => $AntrianCS
+        $SudahAntriCS = DB::table('antrians')
+            ->where('tanggal_antrian', '<', $skrgmin10)
+            ->where('jenis_layanan', 'cs')
+            ->orderBy('id', 'desc')
+            ->select('no_antrian', 'no_ppk', 'tanggal_antrian', 'email', 'status')
+            ->get();
 
-        ]);
-    }
-    public function da_opm()
-    {
-        return view('antrian.daftarAntrian.operatorMutu', [
-            'title' => 'Daftar Antrian',
-            'active' => 'daftar antrian'
-        ]);
-    }
-    public function da_ocs()
-    {
         return view('antrian.daftarAntrian.operatorCS', [
             'title' => 'Daftar Antrian',
-            'active' => 'daftar antrian'
+            'active' => 'daftar antrian',
+            'AntrianCS' => $AntrianCS,
+            'SudahAntriCS' => $SudahAntriCS,
+
         ]);
     }
     public function da_admin()
@@ -188,4 +211,64 @@ class DaftarAntrianController extends Controller
         return redirect('/daftar/antrian/karantina')->with('success');
     }
 
+
+    public function statusDiprosesM()
+    {
+        $no_ppk = request()->segment(2);
+
+        Antrian::where('no_ppk', $no_ppk)->update([
+            "status"=>"Diproses"
+        ]);
+        return redirect('/daftar/antrian/mutu')->with('success');
+    }
+
+    public function statusRecallM()
+    {
+        $no_ppk = request()->segment(2);
+
+        Antrian::where('no_ppk', $no_ppk)->update([
+            "status"=>"Recall"
+        ]);
+        return redirect('/daftar/antrian/mutu')->with('success');
+    }
+
+    public function statusCancelM()
+    {
+        $no_ppk = request()->segment(2);
+
+        Antrian::where('no_ppk', $no_ppk)->update([
+            "status"=>"Cancel"
+        ]);
+        return redirect('/daftar/antrian/mutu')->with('success');
+    }
+
+        public function statusDiprosesCS()
+    {
+        $no_ppk = request()->segment(2);
+
+        Antrian::where('no_ppk', $no_ppk)->update([
+            "status"=>"Diproses"
+        ]);
+        return redirect('/daftar/antrian/cs')->with('success');
+    }
+
+    public function statusRecallCS()
+    {
+        $no_ppk = request()->segment(2);
+
+        Antrian::where('no_ppk', $no_ppk)->update([
+            "status"=>"Recall"
+        ]);
+        return redirect('/daftar/antrian/cs')->with('success');
+    }
+
+    public function statusCancelCS()
+    {
+        $no_ppk = request()->segment(2);
+
+        Antrian::where('no_ppk', $no_ppk)->update([
+            "status"=>"Cancel"
+        ]);
+        return redirect('/daftar/antrian/cs')->with('success');
+    }
 }

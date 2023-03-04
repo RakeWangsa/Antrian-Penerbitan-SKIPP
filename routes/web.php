@@ -32,19 +32,22 @@ Route::group(['middleware' => ['auth', 'ceklevel:opk']], function() {
     Route::get('/statusDiproses/{no_ppk}', [DaftarAntrianController::class, 'statusDiproses'])->name('statusDiproses')->middleware('auth');
     Route::get('/statusRecall/{no_ppk}', [DaftarAntrianController::class, 'statusRecall'])->name('statusRecall')->middleware('auth');
     Route::get('/statusCancel/{no_ppk}', [DaftarAntrianController::class, 'statusCancel'])->name('statusCancel')->middleware('auth');
-
-    // Route::get('/editStatus/{no_ppk}', [DaftarAntrianController::class, 'editStatus'])->name('editStatus')->middleware('auth');
-    // Route::get('/submitStatus/{no_ppk}', [DaftarAntrianController::class, 'submitStatus'])->name('submitStatus')->middleware('auth');
 });
 
 Route::group(['middleware' => ['auth', 'ceklevel:opm']], function() {
     route::get('/dashboard/operator/mutu', [DashboardController::class, 'dash_opm']);
     Route::get('/daftar/antrian/mutu', [DaftarAntrianController::class, 'da_opm']);
+    Route::get('/statusDiprosesM/{no_ppk}', [DaftarAntrianController::class, 'statusDiprosesM'])->name('statusDiprosesM')->middleware('auth');
+    Route::get('/statusRecallM/{no_ppk}', [DaftarAntrianController::class, 'statusRecallM'])->name('statusRecallM')->middleware('auth');
+    Route::get('/statusCancelM/{no_ppk}', [DaftarAntrianController::class, 'statusCancelM'])->name('statusCancelM')->middleware('auth');
 });
 
 Route::group(['middleware' => ['auth', 'ceklevel:ocs']], function() {
     route::get('/dashboard/operator/cs', [DashboardController::class, 'dash_ocs']);
     Route::get('/daftar/antrian/cs', [DaftarAntrianController::class, 'da_ocs']);
+    Route::get('/statusDiprosesCS/{no_ppk}', [DaftarAntrianController::class, 'statusDiprosesCS'])->name('statusDiprosesCS')->middleware('auth');
+    Route::get('/statusRecallCS/{no_ppk}', [DaftarAntrianController::class, 'statusRecallCS'])->name('statusRecallCS')->middleware('auth');
+    Route::get('/statusCancelCS/{no_ppk}', [DaftarAntrianController::class, 'statusCancelCS'])->name('statusCancelCS')->middleware('auth');
 });
 
 Route::group(['middleware' => ['auth', 'ceklevel:admin']], function() {

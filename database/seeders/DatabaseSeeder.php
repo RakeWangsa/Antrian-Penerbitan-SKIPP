@@ -52,15 +52,29 @@ class DatabaseSeeder extends Seeder
             'level'     => 'opk'
         ]);
 
-        Antrian::create([
-            'no_antrian' => 'U1',
-            'email' => 'aul@gmail.com',
-            'tanggal_antrian' => '2023-01-31',
-            'user_id' => 2,
-            'no_ppk' => '33741298720001',
-            'jenis_layanan' => 'karantina',
-            'status' => 'Menunggu'
+        User::create([
+            'name'      => 'Operator Mutu',
+            'email'     => 'opm@gmail.com',
+            'password'  => bcrypt('12345'),
+            'level'     => 'opm'
         ]);
+
+        User::create([
+            'name'      => 'Operator Customer Service',
+            'email'     => 'ocs@gmail.com',
+            'password'  => bcrypt('12345'),
+            'level'     => 'ocs'
+        ]);
+
+        // Antrian::create([
+        //     'no_antrian' => 'K1',
+        //     'email' => 'aul@gmail.com',
+        //     'tanggal_antrian' => '2023-01-31',
+        //     'user_id' => 2,
+        //     'no_ppk' => '33741298720001',
+        //     'jenis_layanan' => 'karantina',
+        //     'status' => 'Menunggu'
+        // ]);
 
         // User::create([
         //     'name' => 'Auliya Putri',
