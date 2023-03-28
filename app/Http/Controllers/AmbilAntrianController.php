@@ -37,7 +37,8 @@ class AmbilAntrianController extends Controller
     public function ambil(Request $request){
         $email=session('email');
         $PPK = DB::table('v_data_header')->pluck('no_ppk')->toArray();
-        
+        $add=15;
+
         $messages = [
             'required' => ':attribute wajib diisi ',
             'no_ppk.required' => 'Nomor Pengajuan PPK harus diisi!',
@@ -64,21 +65,21 @@ class AmbilAntrianController extends Controller
             ->orderBy('id', 'desc')
             ->pluck('tanggal_antrian')
             ->first();
-        $waktuK10 = Carbon::parse($waktuK)->addMinutes(10);
+        $waktuK10 = Carbon::parse($waktuK)->addMinutes($add);
 
         $waktuM = DB::table('antrians')
             ->where('jenis_layanan', 'mutu')
             ->orderBy('id', 'desc')
             ->pluck('tanggal_antrian')
             ->first();
-        $waktuM10 = Carbon::parse($waktuM)->addMinutes(10);
+        $waktuM10 = Carbon::parse($waktuM)->addMinutes($add);
 
         $waktuCS = DB::table('antrians')
             ->where('jenis_layanan', 'cs')
             ->orderBy('id', 'desc')
             ->pluck('tanggal_antrian')
             ->first();
-        $waktuCS10 = Carbon::parse($waktuCS)->addMinutes(10);
+        $waktuCS10 = Carbon::parse($waktuCS)->addMinutes($add);
 
         $antriK = DB::table('antrians')
             ->where('jenis_layanan', 'karantina')
@@ -284,27 +285,36 @@ class AmbilAntrianController extends Controller
         ]);
     }
 
-    public function editAntrian()
+    public function editAntrian($no_ppk)
     {
-        $no_ppk = request()->segment(2);
-
+        $no_ppk = base64_decode($no_ppk);
+        $PPK = DB::table('v_data_header')
+            ->select('no_ppk')
+            ->get();
         return view('antrian.editAntrian', [
             "title" => "Edit Antrian",
             'active' => 'edit antrian',
-            'no_ppk' => $no_ppk
+            'no_ppk' => $no_ppk,
+            'PPK' => $PPK
         ]);
     }
 
     public function edit(Request $request)
     {
+        $PPK = DB::table('v_data_header')->pluck('no_ppk')->toArray();
         $messages = [
             'required' => ':attribute wajib diisi ',
             'no_ppk.required' => 'Nomor Pengajuan PPK harus diisi!',
-            'no_ppk.unique' => 'Nomor Pengajuan PPK sudah digunakan'
+            'no_ppk.unique' => 'Nomor Pengajuan PPK sudah digunakan',
+            'no_ppk.in' => 'Nomor Pengajuan PPK tidak valid!',
         ];
 
         $this->validate($request, [
-            "no_ppk" => 'required|unique:antrians',
+            "no_ppk" => [
+                'required',
+                Rule::in($PPK),
+                Rule::unique('antrians', 'no_ppk')
+            ],
         ], $messages);
 
         Antrian::where('no_ppk', $request->no_ppklama)->update([
