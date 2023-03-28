@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
 use App\Models\Antrian;
-use App\Models\Waktus;
+use App\Models\Waktu;
 use Illuminate\Validation\Rule;
 
 class AmbilAntrianController extends Controller
@@ -358,11 +358,41 @@ class AmbilAntrianController extends Controller
 
     public function setting()
     {
+        $jedaK = DB::table('waktus')
+            ->where('jenis_layanan', 'karantina')
+            ->pluck('jeda')
+            ->first();
+        $jedaM = DB::table('waktus')
+            ->where('jenis_layanan', 'mutu')
+            ->pluck('jeda')
+            ->first();
+        $jedaCS = DB::table('waktus')
+            ->where('jenis_layanan', 'cs')
+            ->pluck('jeda')
+            ->first();
+            
         return view('antrian.settingAntrian', [
             "title" => "Setting",
             'active' => 'setting',
+            'jedaK' => $jedaK,
+            'jedaM' => $jedaM,
+            'jedaCS' => $jedaCS,
 
         ]);
     }
     
+    public function saveSetting(Request $request)
+    {
+        Waktu::where('jenis_layanan', 'karantina')->update([
+            "jeda"=> $request->jedaK,
+        ]);
+        Waktu::where('jenis_layanan', 'mutu')->update([
+            "jeda"=> $request->jedaM,
+        ]);
+        Waktu::where('jenis_layanan', 'cs')->update([
+            "jeda"=> $request->jedaCS,
+        ]);
+        return redirect('/setting/admin');
+    }
+
 }
