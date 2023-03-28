@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
 use App\Models\Antrian;
+use App\Models\Waktus;
 use Illuminate\Validation\Rule;
 
 class AmbilAntrianController extends Controller
@@ -37,7 +38,18 @@ class AmbilAntrianController extends Controller
     public function ambil(Request $request){
         $email=session('email');
         $PPK = DB::table('v_data_header')->pluck('no_ppk')->toArray();
-        $add=15;
+        $jedaK = DB::table('waktus')
+        ->where('jenis_layanan','karantina')
+        ->pluck('jeda')
+        ->first();
+        $jedaM = DB::table('waktus')
+        ->where('jenis_layanan','mutu')
+        ->pluck('jeda')
+        ->first();
+        $jedaCS = DB::table('waktus')
+        ->where('jenis_layanan','cs')
+        ->pluck('jeda')
+        ->first();
 
         $messages = [
             'required' => ':attribute wajib diisi ',
@@ -65,21 +77,21 @@ class AmbilAntrianController extends Controller
             ->orderBy('id', 'desc')
             ->pluck('tanggal_antrian')
             ->first();
-        $waktuK10 = Carbon::parse($waktuK)->addMinutes($add);
+        $waktuK10 = Carbon::parse($waktuK)->addMinutes($jedaK);
 
         $waktuM = DB::table('antrians')
             ->where('jenis_layanan', 'mutu')
             ->orderBy('id', 'desc')
             ->pluck('tanggal_antrian')
             ->first();
-        $waktuM10 = Carbon::parse($waktuM)->addMinutes($add);
+        $waktuM10 = Carbon::parse($waktuM)->addMinutes($jedaM);
 
         $waktuCS = DB::table('antrians')
             ->where('jenis_layanan', 'cs')
             ->orderBy('id', 'desc')
             ->pluck('tanggal_antrian')
             ->first();
-        $waktuCS10 = Carbon::parse($waktuCS)->addMinutes($add);
+        $waktuCS10 = Carbon::parse($waktuCS)->addMinutes($jedaCS);
 
         $antriK = DB::table('antrians')
             ->where('jenis_layanan', 'karantina')

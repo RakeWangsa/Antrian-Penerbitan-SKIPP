@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Antrian;
+use App\Models\Waktu;
 
 
 class DatabaseSeeder extends Seeder
@@ -64,6 +65,21 @@ class DatabaseSeeder extends Seeder
             'email'     => 'ocs@gmail.com',
             'password'  => bcrypt('12345'),
             'level'     => 'ocs'
+        ]);
+        
+        Waktu::create([
+            'jenis_layanan' => 'karantina',
+            'jeda'      => 10
+        ]);
+        
+        Waktu::create([
+            'jenis_layanan' => 'mutu',
+            'jeda'      => 10
+        ]);
+
+        Waktu::create([
+            'jenis_layanan' => 'cs',
+            'jeda'      => 10
         ]);
 
         // Antrian::create([

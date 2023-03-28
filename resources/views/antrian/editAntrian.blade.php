@@ -25,7 +25,7 @@
                             </div>
                         @endif
                     </div>
-                    <form class="row g-3 mt-3" method="GET" action="{{route('edit', ['no_ppk' => $no_ppk])}}">
+                    <form class="row g-3 mt-3" method="GET" action="{{route('edit', ['no_ppk' => base64_encode($no_ppk)])}}">
                         <div class="col-md-12"> <label for="noppk" class="form-label">Nomor Pengajuan PPK : </label> <input type="text" class="form-control" id="no_ppklama" name="no_ppklama" value="{{ $no_ppk }}" readonly></div>
                         <div class="col-md-12"> <label for="noppk" class="form-label">Masukkan Nomor Pengajuan PPK Baru : </label> <input type="text" class="form-control" id="no_ppk" name="no_ppk" value="{{ old('no_ppk') }}" autocomplete="off"></div>
                         <div class="text-left mb-5 mt-4"> <a class="btn btn-danger" href="/ambil/antrian">Batal</a><button type="submit" class="btn btn-primary ms-2">Submit</button></div>
