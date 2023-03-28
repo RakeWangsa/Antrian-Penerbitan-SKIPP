@@ -212,9 +212,9 @@ class DaftarAntrianController extends Controller
     }
 
 
-    public function statusDiprosesM()
+    public function statusDiprosesM($no_ppk)
     {
-        $no_ppk = request()->segment(2);
+        $no_ppk = base64_decode($no_ppk);
 
         Antrian::where('no_ppk', $no_ppk)->update([
             "status"=>"Diproses"
@@ -222,9 +222,9 @@ class DaftarAntrianController extends Controller
         return redirect('/daftar/antrian/mutu')->with('success');
     }
 
-    public function statusRecallM()
+    public function statusRecallM($no_ppk)
     {
-        $no_ppk = request()->segment(2);
+        $no_ppk = base64_decode($no_ppk);
 
         Antrian::where('no_ppk', $no_ppk)->update([
             "status"=>"Recall"
@@ -232,9 +232,9 @@ class DaftarAntrianController extends Controller
         return redirect('/daftar/antrian/mutu')->with('success');
     }
 
-    public function statusCancelM()
+    public function statusCancelM($no_ppk)
     {
-        $no_ppk = request()->segment(2);
+        $no_ppk = base64_decode($no_ppk);
 
         Antrian::where('no_ppk', $no_ppk)->update([
             "status"=>"Cancel"
@@ -242,9 +242,9 @@ class DaftarAntrianController extends Controller
         return redirect('/daftar/antrian/mutu')->with('success');
     }
 
-        public function statusDiprosesCS()
+        public function statusDiprosesCS($no_ppk)
     {
-        $no_ppk = request()->segment(2);
+        $no_ppk = base64_decode($no_ppk);
 
         Antrian::where('no_ppk', $no_ppk)->update([
             "status"=>"Diproses"
@@ -252,9 +252,9 @@ class DaftarAntrianController extends Controller
         return redirect('/daftar/antrian/cs')->with('success');
     }
 
-    public function statusRecallCS()
+    public function statusRecallCS($no_ppk)
     {
-        $no_ppk = request()->segment(2);
+        $no_ppk = base64_decode($no_ppk);
 
         Antrian::where('no_ppk', $no_ppk)->update([
             "status"=>"Recall"
@@ -262,9 +262,9 @@ class DaftarAntrianController extends Controller
         return redirect('/daftar/antrian/cs')->with('success');
     }
 
-    public function statusCancelCS()
+    public function statusCancelCS($no_ppk)
     {
-        $no_ppk = request()->segment(2);
+        $no_ppk = base64_decode($no_ppk);
 
         Antrian::where('no_ppk', $no_ppk)->update([
             "status"=>"Cancel"
