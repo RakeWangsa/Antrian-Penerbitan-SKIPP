@@ -17,7 +17,8 @@
                <a class="nav-link collapsed {{ ($active === "daftar antrian") ? 'active' : '' }}" href="/daftar/antrian"> <i class="bi bi-list-ul"></i><span>Daftar Antrian</span> </a>  
             @elseif (auth()->user()->level=="admin")
                <a class="nav-link collapsed {{ ($active === "admin") ? 'active' : '' }}" href="/dashboard/admin"> <i class="bi bi-grid"></i><span>Dashboard</span> </a>
-               <a class="nav-link collapsed {{ ($active === "daftar antrian") ? 'active' : '' }}" href="/daftar/antrian/admin"> <i class="bi bi-list-ul"></i><span>Daftar Antrian</span> </a>   
+               <a class="nav-link collapsed {{ ($active === "daftar antrian") ? 'active' : '' }}" href="/daftar/antrian/admin"> <i class="bi bi-list-ul"></i><span>Daftar Antrian</span> </a>
+               <a class="nav-link collapsed {{ ($active === "setting") ? 'active' : '' }}" href="/setting/admin"> <i class="bi bi-gear"></i><span>Setting</span> </a>   
             @endif
          @else
             <a class="nav-link collapsed {{ ($active === "pengunjung") ? 'active' : '' }}" href="/dashboard"> <i class="bi bi-grid"></i><span>Dashboard</span> </a>

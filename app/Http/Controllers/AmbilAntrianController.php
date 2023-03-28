@@ -355,5 +355,14 @@ class AmbilAntrianController extends Controller
 
         return redirect('/ambil/antrian')->with('success');
     }
+
+    public function setting()
+    {
+        return view('antrian.settingAntrian', [
+            "title" => "Setting",
+            'active' => 'setting',
+
+        ]);
+    }
     
 }

@@ -53,4 +53,5 @@ Route::group(['middleware' => ['auth', 'ceklevel:ocs']], function() {
 Route::group(['middleware' => ['auth', 'ceklevel:admin']], function() {
     route::get('/dashboard/admin', [DashboardController::class, 'dash_admin']);
     Route::get('/daftar/antrian/admin', [DaftarAntrianController::class, 'da_admin']);
+    route::get('/setting/admin', [AmbilAntrianController::class, 'setting']);
 });
