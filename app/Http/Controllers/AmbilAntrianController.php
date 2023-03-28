@@ -268,10 +268,10 @@ class AmbilAntrianController extends Controller
         ]);
     }
 
-    public function cetakAntrian()
+    public function cetakAntrian($no_ppk)
     {
 
-        $no_ppk = request()->segment(2);
+        $no_ppk = base64_decode($no_ppk);
 
         $cetak = DB::table('antrians')
         ->where('no_ppk', '=', $no_ppk)
@@ -323,9 +323,9 @@ class AmbilAntrianController extends Controller
         return redirect('/ambil/antrian')->with('success');
     }
 
-    public function hapusAntrian(Request $request)
+    public function hapusAntrian($no_ppk)
     {
-        $no_ppk = request()->segment(2);
+        $no_ppk = base64_decode($no_ppk);
         $skrg = Carbon::now()->addHours(7);
         $layanan = DB::table('antrians')
             ->where('no_ppk', $no_ppk)
