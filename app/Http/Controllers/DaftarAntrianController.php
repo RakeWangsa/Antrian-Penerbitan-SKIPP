@@ -181,9 +181,9 @@ class DaftarAntrianController extends Controller
     //     return redirect('/daftar/antrian/karantina')->with('success');
     // }
 
-    public function statusDiproses()
+    public function statusDiproses($no_ppk)
     {
-        $no_ppk = request()->segment(2);
+        $no_ppk = base64_decode($no_ppk);
 
         Antrian::where('no_ppk', $no_ppk)->update([
             "status"=>"Diproses"
@@ -191,9 +191,9 @@ class DaftarAntrianController extends Controller
         return redirect('/daftar/antrian/karantina')->with('success');
     }
 
-    public function statusRecall()
+    public function statusRecall($no_ppk)
     {
-        $no_ppk = request()->segment(2);
+        $no_ppk = base64_decode($no_ppk);
 
         Antrian::where('no_ppk', $no_ppk)->update([
             "status"=>"Recall"
@@ -201,9 +201,9 @@ class DaftarAntrianController extends Controller
         return redirect('/daftar/antrian/karantina')->with('success');
     }
 
-    public function statusCancel()
+    public function statusCancel($no_ppk)
     {
-        $no_ppk = request()->segment(2);
+        $no_ppk = base64_decode($no_ppk);
 
         Antrian::where('no_ppk', $no_ppk)->update([
             "status"=>"Cancel"
