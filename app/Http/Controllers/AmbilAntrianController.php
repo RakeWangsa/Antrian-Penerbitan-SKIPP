@@ -22,28 +22,37 @@ class AmbilAntrianController extends Controller
             ->orderBy('id', 'asc')
             ->select('no_antrian', 'no_ppk', 'tanggal_antrian')
             ->get();
+        $PPK = DB::table('v_data_header')
+            ->select('no_ppk')
+            ->get();
 
         return view('antrian.ambilAntrian', [
             "title" => "Ambil Antrian",
             'active' => 'antrian',
-            'antrianku' => $Antrianku
+            'antrianku' => $Antrianku,
+            'PPK' => $PPK,
         ]);
     }
 
     public function ambil(Request $request){
-        //$antrian = new AntriansController();
         $email=session('email');
-
+        $PPK = DB::table('v_data_header')->pluck('no_ppk')->toArray();
+        
         $messages = [
             'required' => ':attribute wajib diisi ',
             'no_ppk.required' => 'Nomor Pengajuan PPK harus diisi!',
             'jenislayanan.required' => 'Pilih Jenis Layanan!',
             'jenislayanan.not_in' => 'Pilih Jenis Layanan!',
-            'no_ppk.unique' => 'Nomor Pengajuan PPK sudah digunakan'
+            'no_ppk.unique' => 'Nomor Pengajuan PPK sudah digunakan',
+            'no_ppk.in' => 'Nomor Pengajuan PPK tidak valid!',
         ];
 
         $this->validate($request, [
-            "no_ppk" => 'required|unique:antrians',
+            "no_ppk" => [
+                'required',
+                Rule::in($PPK),
+                Rule::unique('antrians', 'no_ppk')
+            ],
             'jenislayanan' => ['required', Rule::notIn(['Pilih Jenis Layanan!'])],
         ], $messages);
 

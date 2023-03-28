@@ -32,7 +32,7 @@
                         @endif
                     </div>
                     <form class="row g-3 mt-3" method="GET" action="{{route('ambilantrian')}}">
-                        <div class="col-md-12"> <label for="noppk" class="form-label">Masukkan Nomor Pengajuan PPK</label> <input type="text" class="form-control" id="no_ppk" name="no_ppk" value="{{ old('no_ppk') }}"></div>
+                        <div class="col-md-12"> <label for="noppk" class="form-label">Masukkan Nomor Pengajuan PPK</label> <input type="text" class="form-control" id="no_ppk" name="no_ppk" value="{{ old('no_ppk') }}" autocomplete="off"></div>
                         <div class="col-md-12">
                             <label for="jenislayanan" class="form-label">Pilih Jenis Layanan</label> 
                             <select id="jenislayanan" class="form-select" name="jenislayanan">
@@ -82,4 +82,15 @@
             </div>
         </div>
     </section>
+    <script>
+        var ppk = {!! $PPK !!};
+      
+        $(function() {
+          $("#no_ppk").autocomplete({
+            source: ppk.map(function(item) { return item.no_ppk; }),
+            minLength: 1
+          });
+        });
+      </script>
+      
 @endsection
