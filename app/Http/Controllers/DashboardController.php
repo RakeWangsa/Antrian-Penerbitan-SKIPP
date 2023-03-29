@@ -74,6 +74,16 @@ class DashboardController extends Controller
             ->select('no_antrian', 'no_ppk', 'tanggal_antrian')
             ->first();
 
+        $call = DB::table('antrians')
+            ->where('tanggal_antrian', '<', $skrg)
+            ->where('tanggal_antrian', '>', $waktuAntri)
+            ->where('tanggal_antrian', '>', $HariIni)
+            ->orderBy('id', 'desc')
+            ->pluck('no_antrian')
+            ->first();
+        
+        
+
         $listK = DB::table('antrians')
             ->where('jenis_layanan', 'karantina')
             ->where('tanggal_antrian', '>', $skrg)
@@ -124,6 +134,7 @@ class DashboardController extends Controller
             'countK'=> $countK,
             'countM'=> $countM,
             'countCS'=> $countCS,
+            'call'=> $call
         ]);
     }
 

@@ -32,7 +32,7 @@
                         <div class="card info-card2 no-card">
                             <div class="card-body3">
                                 <h5 class="card-title text-center">KARANTINA</h5>
-                                <p class="text-center fw-bold">{{$panggilK}}</p>
+                                <p class="text-center fw-bold">@if(isset($panggilK)){{$panggilK}}@else Tidak ada antrian @endif</p>
                             </div>
                         </div>
                     </div>
@@ -40,7 +40,7 @@
                         <div class="card info-card2 no-card">
                             <div class="card-body3">
                                 <h5 class="card-title text-center">MUTU</h5> 
-                                <p class="text-center fw-bold">{{$panggilM}}</p>
+                                <p class="text-center fw-bold">@if(isset($panggilM)){{$panggilM}}@else Tidak ada antrian @endif</p>
                             </div>
                         </div>
                     </div>
@@ -48,7 +48,7 @@
                         <div class="card info-card2 no-card">
                             <div class="card-body3">
                                 <h5 class="card-title text-center">CUSTOMER SERVICE</h5>
-                                <p class="text-center fw-bold">{{$panggilCS}}</p> 
+                                <p class="text-center fw-bold">@if(isset($panggilCS)){{$panggilCS}}@else Tidak ada antrian @endif</p> 
                             </div>
                         </div>
                     </div>
