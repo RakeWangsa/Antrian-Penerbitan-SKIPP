@@ -103,8 +103,8 @@
                 
                 <tbody>
                   @php($no=1)
-                  @if(count($antrianK) > 0)
-                  @foreach($antrianK as $item)
+                  @if(count($antrianM) > 0)
+                  @foreach($antrianM as $item)
                    <tr>
                       <td scope="row">{{ $no++ }}</td>
                       <td>{{ $item->no_antrian }}</td>

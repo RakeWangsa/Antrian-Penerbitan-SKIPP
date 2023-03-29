@@ -145,16 +145,17 @@ class DaftarAntrianController extends Controller
 
     public function da_opk()
     {
-        $skrgmin10 = Carbon::now()->addHours(7)->subMinutes(10);
+        // $skrgmin10 = Carbon::now()->addHours(7)->subMinutes(10);
+        $skrg = Carbon::now()->addHours(7);
         $AntrianK = DB::table('antrians')
-            ->where('tanggal_antrian', '>', $skrgmin10)
+            ->where('tanggal_antrian', '>', $skrg)
             ->where('jenis_layanan', 'karantina')
             ->orderBy('id', 'asc')
             ->select('no_antrian', 'no_ppk', 'tanggal_antrian', 'email', 'status')
             ->get();
 
         $SudahAntriK = DB::table('antrians')
-            ->where('tanggal_antrian', '<', $skrgmin10)
+            ->where('tanggal_antrian', '<', $skrg)
             ->where('jenis_layanan', 'karantina')
             ->orderBy('id', 'desc')
             ->select('no_antrian', 'no_ppk', 'tanggal_antrian', 'email', 'status')
@@ -171,16 +172,16 @@ class DaftarAntrianController extends Controller
     }
     public function da_opm()
     {
-        $skrgmin10 = Carbon::now()->addHours(7)->subMinutes(10);
+        $skrg = Carbon::now()->addHours(7);
         $AntrianM = DB::table('antrians')
-            ->where('tanggal_antrian', '>', $skrgmin10)
+            ->where('tanggal_antrian', '>', $skrg)
             ->where('jenis_layanan', 'mutu')
             ->orderBy('id', 'asc')
             ->select('no_antrian', 'no_ppk', 'tanggal_antrian', 'email', 'status')
             ->get();
 
         $SudahAntriM = DB::table('antrians')
-            ->where('tanggal_antrian', '<', $skrgmin10)
+            ->where('tanggal_antrian', '<', $skrg)
             ->where('jenis_layanan', 'mutu')
             ->orderBy('id', 'desc')
             ->select('no_antrian', 'no_ppk', 'tanggal_antrian', 'email', 'status')
@@ -196,16 +197,16 @@ class DaftarAntrianController extends Controller
     }
     public function da_ocs()
     {
-        $skrgmin10 = Carbon::now()->addHours(7)->subMinutes(10);
+        $skrg = Carbon::now()->addHours(7);
         $AntrianCS = DB::table('antrians')
-            ->where('tanggal_antrian', '>', $skrgmin10)
+            ->where('tanggal_antrian', '>', $skrg)
             ->where('jenis_layanan', 'cs')
             ->orderBy('id', 'asc')
             ->select('no_antrian', 'no_ppk', 'tanggal_antrian', 'email', 'status')
             ->get();
 
         $SudahAntriCS = DB::table('antrians')
-            ->where('tanggal_antrian', '<', $skrgmin10)
+            ->where('tanggal_antrian', '<', $skrg)
             ->where('jenis_layanan', 'cs')
             ->orderBy('id', 'desc')
             ->select('no_antrian', 'no_ppk', 'tanggal_antrian', 'email', 'status')
