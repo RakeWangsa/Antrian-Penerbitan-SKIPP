@@ -221,9 +221,28 @@ class DaftarAntrianController extends Controller
     }
     public function da_admin()
     {
+        $antrianK = DB::table('antrians')
+            ->where('jenis_layanan', 'karantina')
+            ->orderBy('id', 'desc')
+            ->select('no_antrian', 'no_ppk', 'tanggal_antrian', 'email', 'status')
+            ->get();
+        $antrianM = DB::table('antrians')
+            ->where('jenis_layanan', 'mutu')
+            ->orderBy('id', 'desc')
+            ->select('no_antrian', 'no_ppk', 'tanggal_antrian', 'email', 'status')
+            ->get();
+        $antrianCS = DB::table('antrians')
+            ->where('jenis_layanan', 'cs')
+            ->orderBy('id', 'desc')
+            ->select('no_antrian', 'no_ppk', 'tanggal_antrian', 'email', 'status')
+            ->get();
+
         return view('antrian.daftarAntrian.admin', [
             'title' => 'Daftar Antrian',
-            'active' => 'daftar antrian'
+            'active' => 'daftar antrian',
+            'antrianK' => $antrianK,
+            'antrianM' => $antrianM,
+            'antrianCS' => $antrianCS,
         ]);
     }
 
