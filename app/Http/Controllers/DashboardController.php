@@ -133,14 +133,14 @@ class DashboardController extends Controller
             ->where('tanggal_antrian', '<', $skrg)
             ->where('tanggal_antrian', '>', $HariIni)
             ->orderBy('id', 'desc')
-            ->select('no_antrian', 'no_ppk', 'tanggal_antrian')
+            ->pluck('no_antrian')
             ->first();
         }else{
             $antrianK = DB::table('antrians')
             ->where('jenis_layanan', 'karantina')
             ->where('tanggal_antrian', '>', $waktuAntriK)
             ->orderBy('id', 'desc')
-            ->select('no_antrian', 'no_ppk', 'tanggal_antrian')
+            ->pluck('no_antrian')
             ->first();
         }
         
@@ -150,14 +150,14 @@ class DashboardController extends Controller
             ->where('tanggal_antrian', '<', $skrg)
             ->where('tanggal_antrian', '>', $HariIni)
             ->orderBy('id', 'desc')
-            ->select('no_antrian', 'no_ppk', 'tanggal_antrian')
+            ->pluck('no_antrian')
             ->first();
         }else{
             $antrianM = DB::table('antrians')
             ->where('jenis_layanan', 'mutu')
             ->where('tanggal_antrian', '>', $waktuAntriM)
             ->orderBy('id', 'desc')
-            ->select('no_antrian', 'no_ppk', 'tanggal_antrian')
+            ->pluck('no_antrian')
             ->first();
         }
 
@@ -167,14 +167,14 @@ class DashboardController extends Controller
             ->where('tanggal_antrian', '<', $skrg)
             ->where('tanggal_antrian', '>', $HariIni)
             ->orderBy('id', 'desc')
-            ->select('no_antrian', 'no_ppk', 'tanggal_antrian')
+            ->pluck('no_antrian')
             ->first();
         }else{
             $antrianCS = DB::table('antrians')
             ->where('jenis_layanan', 'cs')
             ->where('tanggal_antrian', '>', $waktuAntriCS)
             ->orderBy('id', 'desc')
-            ->select('no_antrian', 'no_ppk', 'tanggal_antrian')
+            ->pluck('no_antrian')
             ->first();
         }
         return view('dashboard.pengunjung', [
@@ -254,9 +254,58 @@ class DashboardController extends Controller
     }
     public function dash_opm()
     {
+        $HariIni = Carbon::now()->addHours(7)->startOfDay();
+        $skrg = Carbon::now()->addHours(7);
+        $jedaM = DB::table('waktus')
+        ->where('jenis_layanan','mutu')
+        ->pluck('jeda')
+        ->first();
+        $waktuAntriM=Carbon::parse($skrg)->subMinutes($jedaM);
+
+        $antrianM = DB::table('antrians')
+            ->where('jenis_layanan', 'mutu')
+            ->where('tanggal_antrian', '>', $HariIni)
+            ->select('no_antrian', 'no_ppk', 'tanggal_antrian', 'email', 'status')
+            ->get();
+        $jumlahM = count($antrianM);
+
+        $nextantriM = DB::table('antrians')
+        ->where('jenis_layanan', 'mutu')
+        ->where('tanggal_antrian', '>', $skrg)
+        ->orderBy('id', 'asc')
+        ->pluck('no_antrian')
+        ->first();
+
+        if(isset($nextantriM)){
+            $panggilM = DB::table('antrians')
+            ->where('jenis_layanan', 'mutu')
+            ->where('tanggal_antrian', '<', $skrg)
+            ->where('tanggal_antrian', '>', $HariIni)
+            ->orderBy('id', 'desc')
+            ->pluck('no_antrian')
+            ->first();
+        }else{
+            $panggilM = DB::table('antrians')
+            ->where('jenis_layanan', 'mutu')
+            ->where('tanggal_antrian', '>', $waktuAntriM)
+            ->orderBy('id', 'desc')
+            ->pluck('no_antrian')
+            ->first();
+        }
+
+        $antrisisaM = DB::table('antrians')
+        ->where('jenis_layanan', 'mutu')
+        ->where('tanggal_antrian', '>', $skrg)
+        ->select('no_antrian', 'no_ppk', 'tanggal_antrian', 'email', 'status')
+        ->get();
+        $sisaM = count($antrisisaM);
         return view('dashboard.operator.mutu', [
             'title' => 'Dashboard',
-            'active' => 'operator'
+            'active' => 'operator',
+            'jumlahM' => $jumlahM,
+            'panggilM' => $panggilM,
+            'nextantriM' => $nextantriM,
+            'sisaM' => $sisaM,
         ]);
     }
     public function dash_ocs()
