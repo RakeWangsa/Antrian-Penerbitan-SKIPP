@@ -123,11 +123,20 @@ class DisplayAntrianController extends Controller
             ->first();
         }
 
+        $call = DB::table('antrians')
+            ->where('tanggal_antrian', '<', $skrg)
+            ->where('tanggal_antrian', '>', $waktuAntri)
+            ->where('tanggal_antrian', '>', $HariIni)
+            ->orderBy('id', 'desc')
+            ->select('no_antrian','jenis_layanan')
+            ->first();
+
         return view('display', [
             'title' => 'Antrian Pengunjung',
             'panggilK' => $panggilK,
             'panggilM' => $panggilM,
             'panggilCS' => $panggilCS,
+            'call' => $call,
         ]);
     }
 }

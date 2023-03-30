@@ -14,8 +14,9 @@
                         <div class="card info-card no-card">
                             <div class="card-body3">
                                 <h5 class="card-title text-center" style="font-size: 30px; font-weight: 400;">NOMOR ANTRIAN</h5>
-                                <p class="text-center fw-bold" style="font-size: 100px; font-weight: 700;">M1</p>
-                                <h5 class="card-title text-center" style="font-size: 30px; font-weight: 400;">LOKET</h5>
+                                @if(isset($call))<p class="text-center fw-bold" style="font-size: 100px; font-weight: 700;">{{$call->no_antrian}}</p>
+                                @else <p class="text-center fw-bold" style="font-size: 30px; font-weight: 700;">Tidak ada antrian</p>@endif
+                                <h5 class="card-title text-center" style="font-size: 30px; font-weight: 400;">@if(isset($call)) LOKET {{ strtoupper($call->jenis_layanan) }}@endif</h5>
                             </div>
                         </div>   
                     </div>

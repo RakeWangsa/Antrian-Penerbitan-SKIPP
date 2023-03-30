@@ -32,7 +32,7 @@
                     <div class="d-flex align-items-center">
                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"> <i class="bi bi-people" style="color: #4154f1; font-size: 70px;"></i></div>
                        <div class="ps-4 mt-4 mb-4">
-                          <h5 style="color: #4154f1; font-weight: 700; font-size: 30px;">1244</h5>
+                          <h5 style="color: #4154f1; font-weight: 700; font-size: 30px;">{{ $jumlahK }}</h5>
                           <span class="small pt-1 fw-bold">Jumlah Antrian</span>
                        </div>
                     </div>
@@ -45,7 +45,8 @@
                     <div class="d-flex align-items-center">
                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"> <i class="bi bi-person-check" style="color: #2eca6a; font-size: 70px;"></i></div>
                        <div class="ps-4 mt-4 mb-4">
-                          <h5 style="color: #2eca6a; font-weight: 700; font-size: 30px;">1244</h5>
+                        @if(isset($panggilK)) <h5 style="color: #2eca6a; font-weight: 700; font-size: 30px;">{{ $panggilK }}</h5>
+                        @else <h5 style="color: #2eca6a; font-weight: 700; font-size: 30px;">-</h5> @endif
                           <span class="small pt-1 fw-bold">Antrian Sekarang</span>
                        </div>
                     </div>
@@ -58,7 +59,8 @@
                     <div class="d-flex align-items-center">
                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"> <i class="bi bi-person-plus" style="color: #ff771d; font-size: 70px;"></i></div>
                        <div class="ps-4 mt-4 mb-4">
-                          <h5 style="color: #ff771d; font-weight: 700; font-size: 30px;">1244</h5>
+                        @if(isset($nextantriK)) <h5 style="color: #ff771d; font-weight: 700; font-size: 30px;">{{ $nextantriK }}</h5>
+                        @else <h5 style="color: #ff771d; font-weight: 700; font-size: 30px;">-</h5> @endif
                           <span class="small pt-1 fw-bold">Antrian Selanjutnya</span>
                        </div>
                     </div>
@@ -71,14 +73,14 @@
                     <div class="d-flex align-items-center">
                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"> <i class="bi bi-person" style="color: #eb3d34; font-size: 70px;"></i></div>
                        <div class="ps-4 mt-4 mb-4">
-                          <h5 style="color: #eb3d34; font-weight: 700; font-size: 30px;">1244</h5>
+                          <h5 style="color: #eb3d34; font-weight: 700; font-size: 30px;">{{ $sisaK }}</h5>
                           <span class="small fw-bold">Sisa Antrian</span>
                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-xxl-12 col-md-12">
+        {{-- <div class="col-xxl-12 col-md-12">
             <div class="card">
                 <div class="card-body">
                 <h5 class="card-title">Panggil Antrian</h5>
@@ -101,6 +103,6 @@
                 </table>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>  
 @endsection

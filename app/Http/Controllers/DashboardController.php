@@ -72,17 +72,7 @@ class DashboardController extends Controller
             ->where('tanggal_antrian', '>', $HariIni)
             ->orderBy('id', 'desc')
             ->select('no_antrian', 'no_ppk', 'tanggal_antrian')
-            ->first();
-
-        $call = DB::table('antrians')
-            ->where('tanggal_antrian', '<', $skrg)
-            ->where('tanggal_antrian', '>', $waktuAntri)
-            ->where('tanggal_antrian', '>', $HariIni)
-            ->orderBy('id', 'desc')
-            ->pluck('no_antrian')
-            ->first();
-        
-        
+            ->first();        
 
         $listK = DB::table('antrians')
             ->where('jenis_layanan', 'karantina')
@@ -134,15 +124,64 @@ class DashboardController extends Controller
             'countK'=> $countK,
             'countM'=> $countM,
             'countCS'=> $countCS,
-            'call'=> $call
         ]);
     }
 
     public function dash_opk()
     {
+        $HariIni = Carbon::now()->addHours(7)->startOfDay();
+        $skrg = Carbon::now()->addHours(7);
+        $jedaK = DB::table('waktus')
+        ->where('jenis_layanan','karantina')
+        ->pluck('jeda')
+        ->first();
+        $waktuAntriK=Carbon::parse($skrg)->subMinutes($jedaK);
+
+        $antrianK = DB::table('antrians')
+            ->where('jenis_layanan', 'karantina')
+            ->where('tanggal_antrian', '>', $HariIni)
+            ->select('no_antrian', 'no_ppk', 'tanggal_antrian', 'email', 'status')
+            ->get();
+        $jumlahK = count($antrianK);
+
+        $nextantriK = DB::table('antrians')
+        ->where('jenis_layanan', 'karantina')
+        ->where('tanggal_antrian', '>', $skrg)
+        ->orderBy('id', 'asc')
+        ->pluck('no_antrian')
+        ->first();
+
+        if(isset($nextantriK)){
+            $panggilK = DB::table('antrians')
+            ->where('jenis_layanan', 'karantina')
+            ->where('tanggal_antrian', '<', $skrg)
+            ->where('tanggal_antrian', '>', $HariIni)
+            ->orderBy('id', 'desc')
+            ->pluck('no_antrian')
+            ->first();
+        }else{
+            $panggilK = DB::table('antrians')
+            ->where('jenis_layanan', 'karantina')
+            ->where('tanggal_antrian', '>', $waktuAntriK)
+            ->orderBy('id', 'desc')
+            ->pluck('no_antrian')
+            ->first();
+        }
+
+        $antrisisaK = DB::table('antrians')
+        ->where('jenis_layanan', 'karantina')
+        ->where('tanggal_antrian', '>', $skrg)
+        ->select('no_antrian', 'no_ppk', 'tanggal_antrian', 'email', 'status')
+        ->get();
+        $sisaK = count($antrisisaK);
+
         return view('dashboard.operator.karantina', [
             'title' => 'Dashboard',
             'active' => 'operator',
+            'jumlahK' => $jumlahK,
+            'panggilK' => $panggilK,
+            'nextantriK' => $nextantriK,
+            'sisaK' => $sisaK,
         ]);
     }
     public function dash_opm()

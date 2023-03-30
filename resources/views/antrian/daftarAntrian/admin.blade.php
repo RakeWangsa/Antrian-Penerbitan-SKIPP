@@ -51,7 +51,6 @@
                       <th scope="col">Waktu Antri</th>
                       <th scope="col">Email</th>
                       <th scope="col">Status</th>
-                      <th scope="col">Action</th>
                    </tr>
                 </thead>
                 
@@ -66,11 +65,6 @@
                       <td>{{ $item->tanggal_antrian }}</td>
                       <td>{{ $item->email }}</td>
                       <td>{{ $item->status }}</td>
-                      <td>
-                        <a class="btn btn-primary" style="border-radius: 100px;" a href="{{ route('statusDiproses', ['no_ppk' => base64_encode($item->no_ppk)]) }}"><i class="bi bi-check-circle text-white"></i></a>
-                        <a class="btn btn-warning" style="border-radius: 100px;" a href="{{ route('statusRecall', ['no_ppk' => base64_encode($item->no_ppk)]) }}"><i class="bi bi-telephone-forward text-white"></i></a>
-                        <a class="btn btn-danger" style="border-radius: 100px;" a href="{{ route('statusCancel', ['no_ppk' => base64_encode($item->no_ppk)]) }}"><i class="bi bi-x-circle text-white"></i></a>
-                      </td>
                    </tr>
                    @endforeach
                    @else
@@ -97,7 +91,6 @@
                       <th scope="col">Waktu Antri</th>
                       <th scope="col">Email</th>
                       <th scope="col">Status</th>
-                      <th scope="col">Action</th>
                    </tr>
                 </thead>
                 
@@ -112,11 +105,6 @@
                       <td>{{ $item->tanggal_antrian }}</td>
                       <td>{{ $item->email }}</td>
                       <td>{{ $item->status }}</td>
-                      <td>
-                        <a class="btn btn-primary" style="border-radius: 100px;" a href="{{ route('statusDiproses', ['no_ppk' => base64_encode($item->no_ppk)]) }}"><i class="bi bi-check-circle text-white"></i></a>
-                        <a class="btn btn-warning" style="border-radius: 100px;" a href="{{ route('statusRecall', ['no_ppk' => base64_encode($item->no_ppk)]) }}"><i class="bi bi-telephone-forward text-white"></i></a>
-                        <a class="btn btn-danger" style="border-radius: 100px;" a href="{{ route('statusCancel', ['no_ppk' => base64_encode($item->no_ppk)]) }}"><i class="bi bi-x-circle text-white"></i></a>
-                      </td>
                    </tr>
                    @endforeach
                    @else
@@ -143,7 +131,6 @@
                      <th scope="col">Waktu Antri</th>
                      <th scope="col">Email</th>
                      <th scope="col">Status</th>
-                     <th scope="col">Action</th>
                   </tr>
                </thead>
                
@@ -158,11 +145,6 @@
                      <td>{{ $item->tanggal_antrian }}</td>
                      <td>{{ $item->email }}</td>
                      <td>{{ $item->status }}</td>
-                     <td>
-                       <a class="btn btn-primary" style="border-radius: 100px;" a href="{{ route('statusDiproses', ['no_ppk' => base64_encode($item->no_ppk)]) }}"><i class="bi bi-check-circle text-white"></i></a>
-                       <a class="btn btn-warning" style="border-radius: 100px;" a href="{{ route('statusRecall', ['no_ppk' => base64_encode($item->no_ppk)]) }}"><i class="bi bi-telephone-forward text-white"></i></a>
-                       <a class="btn btn-danger" style="border-radius: 100px;" a href="{{ route('statusCancel', ['no_ppk' => base64_encode($item->no_ppk)]) }}"><i class="bi bi-x-circle text-white"></i></a>
-                     </td>
                   </tr>
                   @endforeach
                   @else
