@@ -13,7 +13,7 @@ class DisplayAntrianController extends Controller
     {
         $skrg = Carbon::now()->addHours(7);
         $HariIni = Carbon::now()->addHours(7)->startOfDay();
-        $waktuAntri=Carbon::parse($skrg)->subMinutes(10);
+        //$waktuAntri=Carbon::parse($skrg)->subMinutes(10);
 
         $jedaK = DB::table('waktus')
         ->where('jenis_layanan','karantina')
@@ -27,25 +27,6 @@ class DisplayAntrianController extends Controller
         ->where('jenis_layanan','cs')
         ->pluck('jeda')
         ->first();
-
-        // $waktuK = DB::table('antrians')
-        // ->where('jenis_layanan','karantina')
-        // ->where('tanggal_antrian', '<', $skrg)
-        // ->orderBy('id', 'desc')
-        // ->pluck('tanggal_antrian')
-        // ->first();
-        // $waktuM = DB::table('antrians')
-        // ->where('jenis_layanan','mutu')
-        // ->where('tanggal_antrian', '<', $skrg)
-        // ->orderBy('id', 'desc')
-        // ->pluck('tanggal_antrian')
-        // ->first();
-        // $waktuCS = DB::table('antrians')
-        // ->where('jenis_layanan','cs')
-        // ->where('tanggal_antrian', '<', $skrg)
-        // ->orderBy('id', 'desc')
-        // ->pluck('tanggal_antrian')
-        // ->first();
 
         $waktuAntriK=Carbon::parse($skrg)->subMinutes($jedaK);
         $waktuAntriM=Carbon::parse($skrg)->subMinutes($jedaM);
@@ -123,9 +104,12 @@ class DisplayAntrianController extends Controller
             ->first();
         }
 
+        $maks=max($jedaK,$jedaM,$jedaCS);
+        $waktuAntriMax=Carbon::parse($skrg)->subMinutes($maks);
+
         $call = DB::table('antrians')
             ->where('tanggal_antrian', '<', $skrg)
-            ->where('tanggal_antrian', '>', $waktuAntri)
+            ->where('tanggal_antrian', '>', $waktuAntriMax)
             ->where('tanggal_antrian', '>', $HariIni)
             ->orderBy('id', 'desc')
             ->select('no_antrian','jenis_layanan')

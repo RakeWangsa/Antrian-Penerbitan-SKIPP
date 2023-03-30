@@ -11,7 +11,7 @@
         </nav>
     </div>
     
-    <div class="col-lg-12">
+    {{-- <div class="col-lg-12">
         <div class="col-xxl-12 col-md-12">
             <div class="card info-card mic-card">
                 <div class="card-body">
@@ -24,7 +24,7 @@
                 </div>
             </div>              
         </div>           
-    </div>
+    </div> --}}
     <div class="row">
         <div class="col-xxl-3 col-md-3">
             <div class="card info-card ja-card">

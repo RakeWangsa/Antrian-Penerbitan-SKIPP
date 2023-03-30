@@ -20,32 +20,50 @@ class DashboardController extends Controller
         $HariIni = Carbon::now()->addHours(7)->startOfDay();
         $waktuAntri=Carbon::parse($skrg)->subMinutes(10);
 
-        $antrianK = DB::table('antrians')
-            ->where('jenis_layanan', 'karantina')
-            ->where('tanggal_antrian', '<', $skrg)
-            ->where('tanggal_antrian', '>', $waktuAntri)
-            ->where('tanggal_antrian', '>', $HariIni)
-            ->orderBy('id', 'desc')
-            ->pluck('no_antrian')
-            ->first();
+        $jedaK = DB::table('waktus')
+        ->where('jenis_layanan','karantina')
+        ->pluck('jeda')
+        ->first();
+        $jedaM = DB::table('waktus')
+        ->where('jenis_layanan','mutu')
+        ->pluck('jeda')
+        ->first();
+        $jedaCS = DB::table('waktus')
+        ->where('jenis_layanan','cs')
+        ->pluck('jeda')
+        ->first();
 
-        $antrianM = DB::table('antrians')
-            ->where('jenis_layanan', 'mutu')
-            ->where('tanggal_antrian', '<', $skrg)
-            ->where('tanggal_antrian', '>', $waktuAntri)
-            ->where('tanggal_antrian', '>', $HariIni)
-            ->orderBy('id', 'desc')
-            ->pluck('no_antrian')
-            ->first();
+        $waktuAntriK=Carbon::parse($skrg)->subMinutes($jedaK);
+        $waktuAntriM=Carbon::parse($skrg)->subMinutes($jedaM);
+        $waktuAntriCS=Carbon::parse($skrg)->subMinutes($jedaCS);
 
-        $antrianCS = DB::table('antrians')
-            ->where('jenis_layanan', 'cs')
-            ->where('tanggal_antrian', '<', $skrg)
-            ->where('tanggal_antrian', '>', $waktuAntri)
-            ->where('tanggal_antrian', '>', $HariIni)
-            ->orderBy('id', 'desc')
-            ->pluck('no_antrian')
-            ->first();
+
+        // $antrianK = DB::table('antrians')
+        //     ->where('jenis_layanan', 'karantina')
+        //     ->where('tanggal_antrian', '<', $skrg)
+        //     ->where('tanggal_antrian', '>', $waktuAntri)
+        //     ->where('tanggal_antrian', '>', $HariIni)
+        //     ->orderBy('id', 'desc')
+        //     ->pluck('no_antrian')
+        //     ->first();
+
+        // $antrianM = DB::table('antrians')
+        //     ->where('jenis_layanan', 'mutu')
+        //     ->where('tanggal_antrian', '<', $skrg)
+        //     ->where('tanggal_antrian', '>', $waktuAntri)
+        //     ->where('tanggal_antrian', '>', $HariIni)
+        //     ->orderBy('id', 'desc')
+        //     ->pluck('no_antrian')
+        //     ->first();
+
+        // $antrianCS = DB::table('antrians')
+        //     ->where('jenis_layanan', 'cs')
+        //     ->where('tanggal_antrian', '<', $skrg)
+        //     ->where('tanggal_antrian', '>', $waktuAntri)
+        //     ->where('tanggal_antrian', '>', $HariIni)
+        //     ->orderBy('id', 'desc')
+        //     ->pluck('no_antrian')
+        //     ->first();
 
         $panggilK = DB::table('antrians')
             ->where('jenis_layanan', 'karantina')
@@ -109,6 +127,56 @@ class DashboardController extends Controller
             $countCS++;
         }
 
+        if(count($listK)>0){
+            $antrianK = DB::table('antrians')
+            ->where('jenis_layanan', 'karantina')
+            ->where('tanggal_antrian', '<', $skrg)
+            ->where('tanggal_antrian', '>', $HariIni)
+            ->orderBy('id', 'desc')
+            ->select('no_antrian', 'no_ppk', 'tanggal_antrian')
+            ->first();
+        }else{
+            $antrianK = DB::table('antrians')
+            ->where('jenis_layanan', 'karantina')
+            ->where('tanggal_antrian', '>', $waktuAntriK)
+            ->orderBy('id', 'desc')
+            ->select('no_antrian', 'no_ppk', 'tanggal_antrian')
+            ->first();
+        }
+        
+        if(count($listM)>0){
+            $antrianM = DB::table('antrians')
+            ->where('jenis_layanan', 'mutu')
+            ->where('tanggal_antrian', '<', $skrg)
+            ->where('tanggal_antrian', '>', $HariIni)
+            ->orderBy('id', 'desc')
+            ->select('no_antrian', 'no_ppk', 'tanggal_antrian')
+            ->first();
+        }else{
+            $antrianM = DB::table('antrians')
+            ->where('jenis_layanan', 'mutu')
+            ->where('tanggal_antrian', '>', $waktuAntriM)
+            ->orderBy('id', 'desc')
+            ->select('no_antrian', 'no_ppk', 'tanggal_antrian')
+            ->first();
+        }
+
+        if(count($listCS)>0){
+            $antrianCS = DB::table('antrians')
+            ->where('jenis_layanan', 'cs')
+            ->where('tanggal_antrian', '<', $skrg)
+            ->where('tanggal_antrian', '>', $HariIni)
+            ->orderBy('id', 'desc')
+            ->select('no_antrian', 'no_ppk', 'tanggal_antrian')
+            ->first();
+        }else{
+            $antrianCS = DB::table('antrians')
+            ->where('jenis_layanan', 'cs')
+            ->where('tanggal_antrian', '>', $waktuAntriCS)
+            ->orderBy('id', 'desc')
+            ->select('no_antrian', 'no_ppk', 'tanggal_antrian')
+            ->first();
+        }
         return view('dashboard.pengunjung', [
             "title" => "Dashboard",
             'active' => 'pengunjung',
