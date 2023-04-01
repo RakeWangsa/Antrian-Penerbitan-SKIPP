@@ -24,7 +24,7 @@
                      <div class="pt-4 pb-2">
                         <h5 class="card-title text-center pb-0 fs-4">REGISTER</h5>
                      </div>
-                     <form action="/login" method="post">
+                     <form action="/register" method="post">
                         @csrf
                         <div class="form-floating">
                            <input type="text" name="name" class="form-control rounded-top 
