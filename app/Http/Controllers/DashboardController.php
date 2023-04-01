@@ -299,6 +299,7 @@ class DashboardController extends Controller
         ->select('no_antrian', 'no_ppk', 'tanggal_antrian', 'email', 'status')
         ->get();
         $sisaM = count($antrisisaM);
+
         return view('dashboard.operator.mutu', [
             'title' => 'Dashboard',
             'active' => 'operator',
@@ -310,9 +311,59 @@ class DashboardController extends Controller
     }
     public function dash_ocs()
     {
+        $HariIni = Carbon::now()->addHours(7)->startOfDay();
+        $skrg = Carbon::now()->addHours(7);
+        $jedaCS = DB::table('waktus')
+        ->where('jenis_layanan','cs')
+        ->pluck('jeda')
+        ->first();
+        $waktuAntriCS=Carbon::parse($skrg)->subMinutes($jedaCS);
+
+        $antrianCS = DB::table('antrians')
+            ->where('jenis_layanan', 'cs')
+            ->where('tanggal_antrian', '>', $HariIni)
+            ->select('no_antrian', 'no_ppk', 'tanggal_antrian', 'email', 'status')
+            ->get();
+        $jumlahCS = count($antrianCS);
+
+        $nextantriCS = DB::table('antrians')
+        ->where('jenis_layanan', 'cs')
+        ->where('tanggal_antrian', '>', $skrg)
+        ->orderBy('id', 'asc')
+        ->pluck('no_antrian')
+        ->first();
+
+        if(isset($nextantriCS)){
+            $panggilCS = DB::table('antrians')
+            ->where('jenis_layanan', 'cs')
+            ->where('tanggal_antrian', '<', $skrg)
+            ->where('tanggal_antrian', '>', $HariIni)
+            ->orderBy('id', 'desc')
+            ->pluck('no_antrian')
+            ->first();
+        }else{
+            $panggilCS = DB::table('antrians')
+            ->where('jenis_layanan', 'mutu')
+            ->where('tanggal_antrian', '>', $waktuAntriCS)
+            ->orderBy('id', 'desc')
+            ->pluck('no_antrian')
+            ->first();
+        }
+
+        $antrisisaCS = DB::table('antrians')
+        ->where('jenis_layanan', 'cs')
+        ->where('tanggal_antrian', '>', $skrg)
+        ->select('no_antrian', 'no_ppk', 'tanggal_antrian', 'email', 'status')
+        ->get();
+        $sisaCS = count($antrisisaCS);
+        
         return view('dashboard.operator.cs', [
             'title' => 'Dashboard',
-            'active' => 'operator'
+            'active' => 'operator',
+            'jumlahCS' => $jumlahCS,
+            'panggilCS' => $panggilCS,
+            'nextantriCS' => $nextantriCS,
+            'sisaCS' => $sisaCS,
         ]);
     }
 

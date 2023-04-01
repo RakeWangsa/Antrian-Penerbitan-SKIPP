@@ -43,9 +43,7 @@ class LoginController extends Controller
             }else{
                 return redirect('/dashboard');
             }
-            
         }
- 
         return back()->with('loginError','Login failed!');
     }
 
