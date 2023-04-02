@@ -56,5 +56,12 @@
                 </div>
             </div>
         </div> 
+        <script>
+            if (document.cookie.indexOf('reload') >= 0) {
+                setTimeout(function() {
+                    location.reload();
+                }, 30000); //atur waktu sesuai keinginan Anda
+            }
+        </script>
     </body>
 </html>

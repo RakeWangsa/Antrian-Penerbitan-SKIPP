@@ -8,7 +8,7 @@ use App\Http\Controllers\AmbilAntrianController;
 use App\Http\Controllers\DaftarAntrianController;
 use App\Http\Controllers\DisplayAntrianController;
 
-Route::get('/display/antrian', [DisplayAntrianController::class, 'index']);
+Route::get('/display/antrian', [DisplayAntrianController::class, 'index'])->name('display');
 
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);

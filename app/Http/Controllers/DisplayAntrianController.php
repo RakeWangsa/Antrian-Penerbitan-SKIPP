@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Response;
 
 class DisplayAntrianController extends Controller
 {
@@ -115,12 +116,20 @@ class DisplayAntrianController extends Controller
             ->select('no_antrian','jenis_layanan')
             ->first();
 
-        return view('display', [
-            'title' => 'Antrian Pengunjung',
-            'panggilK' => $panggilK,
-            'panggilM' => $panggilM,
-            'panggilCS' => $panggilCS,
-            'call' => $call,
-        ]);
+        return response()
+            ->view('display', [
+                'title' => 'Antrian Pengunjung',
+                'panggilK' => $panggilK,
+                'panggilM' => $panggilM,
+                'panggilCS' => $panggilCS,
+                'call' => $call,
+            ])
+            ->header('Cache-Control', 'no-cache, no-store, must-revalidate')
+            ->header('Pragma', 'no-cache')
+            ->header('Expires', '0')
+            ->cookie('reload', 'true', 0.5)
+            ->withHeaders([
+                'Refresh' => '30; url=' . route('display', ['_token' => uniqid()])
+            ]);     
     }
 }
