@@ -116,6 +116,26 @@ class DisplayAntrianController extends Controller
             ->select('no_antrian','jenis_layanan')
             ->first();
 
+        $waktuPanggil = DB::table('antrians')
+            ->where('tanggal_antrian', '<', $skrg)
+            // ->where('tanggal_antrian', '>', $waktuAntriMax)
+            ->where('tanggal_antrian', '>', $HariIni)
+            ->orderBy('id', 'desc')
+            ->select('tanggal_antrian')
+            ->first();
+        
+        if(isset($waktuPanggil)){
+            $waktuCall = Carbon::parse($waktuPanggil->tanggal_antrian);
+
+            $selisihDetik = $skrg->diffInSeconds($waktuCall);
+            if ($selisihDetik > -15 && $selisihDetik < 3600) {
+                //dd($selisihDetik);
+                
+            }
+        }
+        
+        
+
         return response()
             ->view('display', [
                 'title' => 'Antrian Pengunjung',

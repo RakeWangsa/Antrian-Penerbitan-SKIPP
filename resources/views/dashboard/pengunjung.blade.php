@@ -15,6 +15,19 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>
     </div>
     <section class="section dashboard">
+        <audio id="myAudio" controls>
+            <source src="{{ asset('audio/cs1.mp3') }}" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
+          
+          <script>
+            window.addEventListener('load', function () {
+              var audio = document.getElementById('myAudio');
+              audio.play();
+            });
+          </script>
+          
+          
         <div class="row">
             <div class="col-lg-12">
                 <div class="row">

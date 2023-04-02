@@ -8,6 +8,21 @@
             <marquee scrollamount="10" style="font-size: 35px; font-weight: 700;" >SELAMAT DATANG DI SISTEM ANTRIAN ONLINE</marquee>
         </header>
         <div class="row" style="margin-top: 130px; margin-left: 20px;">
+            <audio id="myAudio" controls>
+                <source src="{{ asset('audio/cs1.mp3') }}" type="audio/mpeg">
+                Your browser does not support the audio element.
+              </audio>
+              
+              <script>
+                document.addEventListener("DOMContentLoaded", function(event) { 
+                  var audio = new Audio("{{ asset('audio/cs1.mp3') }}");
+                  audio.play();
+                });
+              </script>
+              
+              
+              
+            
             <div class="col-lg-12">
                 <div class="row">
                     <div class="col-xxl-6 col-md-6">
@@ -33,7 +48,7 @@
                         <div class="card info-card2 no-card">
                             <div class="card-body3">
                                 <h5 class="card-title text-center">KARANTINA</h5>
-                                <p class="text-center fw-bold">@if(isset($panggilK)){{$panggilK}}@else Tidak ada antrian @endif</p>
+                                <p class="text-center fw-bold">@if(isset($panggilK)){{$panggilK->no_antrian}}@else Tidak ada antrian @endif</p>
                             </div>
                         </div>
                     </div>
@@ -41,7 +56,7 @@
                         <div class="card info-card2 no-card">
                             <div class="card-body3">
                                 <h5 class="card-title text-center">MUTU</h5> 
-                                <p class="text-center fw-bold">@if(isset($panggilM)){{$panggilM}}@else Tidak ada antrian @endif</p>
+                                <p class="text-center fw-bold">@if(isset($panggilM)){{$panggilM->no_antrian}}@else Tidak ada antrian @endif</p>
                             </div>
                         </div>
                     </div>
@@ -49,7 +64,7 @@
                         <div class="card info-card2 no-card">
                             <div class="card-body3">
                                 <h5 class="card-title text-center">CUSTOMER SERVICE</h5>
-                                <p class="text-center fw-bold">@if(isset($panggilCS)){{$panggilCS}}@else Tidak ada antrian @endif</p> 
+                                <p class="text-center fw-bold">@if(isset($panggilCS)){{$panggilCS->no_antrian}}@else Tidak ada antrian @endif</p> 
                             </div>
                         </div>
                     </div>
