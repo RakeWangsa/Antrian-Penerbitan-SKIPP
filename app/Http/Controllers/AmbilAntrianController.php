@@ -51,23 +51,36 @@ class AmbilAntrianController extends Controller
         ->pluck('jeda')
         ->first();
 
-        $messages = [
-            'required' => ':attribute wajib diisi ',
-            'no_ppk.required' => 'Nomor Pengajuan PPK harus diisi!',
-            'jenislayanan.required' => 'Pilih Jenis Layanan!',
-            'jenislayanan.not_in' => 'Pilih Jenis Layanan!',
-            'no_ppk.unique' => 'Nomor Pengajuan PPK sudah digunakan',
-            'no_ppk.in' => 'Nomor Pengajuan PPK tidak valid!',
-        ];
-
-        $this->validate($request, [
-            "no_ppk" => [
-                'required',
-                Rule::in($PPK),
-                Rule::unique('antrians', 'no_ppk')
-            ],
-            'jenislayanan' => ['required', Rule::notIn(['Pilih Jenis Layanan!'])],
-        ], $messages);
+        if($request->jenislayanan!='cs'){
+            $messages = [
+                'required' => ':attribute wajib diisi ',
+                'no_ppk.required' => 'Nomor Pengajuan PPK harus diisi!',
+                'jenislayanan.required' => 'Pilih Jenis Layanan!',
+                'jenislayanan.not_in' => 'Pilih Jenis Layanan!',
+                'no_ppk.unique' => 'Nomor Pengajuan PPK sudah digunakan',
+                'no_ppk.in' => 'Nomor Pengajuan PPK tidak valid!',
+            ];
+    
+            $this->validate($request, [
+                "no_ppk" => [
+                    'required',
+                    Rule::in($PPK),
+                    Rule::unique('antrians', 'no_ppk')
+                ],
+                'jenislayanan' => ['required', Rule::notIn(['Pilih Jenis Layanan!'])],
+            ], $messages);
+        }else{
+            $messages = [
+                'required' => ':attribute wajib diisi ',
+                'jenislayanan.required' => 'Pilih Jenis Layanan!',
+                'jenislayanan.not_in' => 'Pilih Jenis Layanan!',
+            ];
+    
+            $this->validate($request, [
+                'jenislayanan' => ['required', Rule::notIn(['Pilih Jenis Layanan!'])],
+            ], $messages);
+        }
+        
 
         $skrg = Carbon::now()->addHours(7);
         $HariIni = Carbon::now()->addHours(7)->startOfDay();
@@ -182,7 +195,7 @@ class AmbilAntrianController extends Controller
             Antrian::insert([
                 'no_antrian' => $no_antriCS,
                 'email' => $email,
-                'no_ppk' => $request->no_ppk,
+                'no_ppk' => '-',
                 'jenis_layanan'=> $request->jenislayanan,
                 "tanggal_antrian" => $inputwaktuCS,
                 "created_at"=> $skrg,
