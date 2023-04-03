@@ -71,12 +71,12 @@
                               <td class="text-center">{{ $item->tanggal_antrian }}</td>
                               <td class="text-center">
                                 <a class="btn btn-success" style="border-radius: 100px;" a href="{{ route('cetakAntrian', ['id' => base64_encode($item->id)]) }}"><i class="bi bi-printer"></i></a>
-                                @if($item->jenis_layanan=='cs')
+                                {{-- @if($item->jenis_layanan=='cs')
                                 <button class="btn btn-warning edit-btn" style="border-radius: 100px;"><i class="bi bi-pencil-square text-white"></i></button>
                                 @else
                                 <a class="btn btn-warning" style="border-radius: 100px;" a href="{{ route('editAntrian', ['no_ppk' => base64_encode($item->no_ppk)]) }}"><i class="bi bi-pencil-square text-white"></i></a>
                                 @endif
-                                <a class="btn btn-danger" style="border-radius: 100px;" onclick="return confirm('Apakah anda yakin?')" a href="{{ route('hapusAntrian', ['id' => base64_encode($item->id)]) }}"><i class="bi bi-trash"></i></a>
+                                <a class="btn btn-danger" style="border-radius: 100px;" onclick="return confirm('Apakah anda yakin?')" a href="{{ route('hapusAntrian', ['id' => base64_encode($item->id)]) }}"><i class="bi bi-trash"></i></a> --}}
                               </td>
                            </tr>
                            @endforeach

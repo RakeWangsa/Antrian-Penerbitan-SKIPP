@@ -37,34 +37,6 @@ class DashboardController extends Controller
         $waktuAntriM=Carbon::parse($skrg)->subMinutes($jedaM);
         $waktuAntriCS=Carbon::parse($skrg)->subMinutes($jedaCS);
 
-
-        // $antrianK = DB::table('antrians')
-        //     ->where('jenis_layanan', 'karantina')
-        //     ->where('tanggal_antrian', '<', $skrg)
-        //     ->where('tanggal_antrian', '>', $waktuAntri)
-        //     ->where('tanggal_antrian', '>', $HariIni)
-        //     ->orderBy('id', 'desc')
-        //     ->pluck('no_antrian')
-        //     ->first();
-
-        // $antrianM = DB::table('antrians')
-        //     ->where('jenis_layanan', 'mutu')
-        //     ->where('tanggal_antrian', '<', $skrg)
-        //     ->where('tanggal_antrian', '>', $waktuAntri)
-        //     ->where('tanggal_antrian', '>', $HariIni)
-        //     ->orderBy('id', 'desc')
-        //     ->pluck('no_antrian')
-        //     ->first();
-
-        // $antrianCS = DB::table('antrians')
-        //     ->where('jenis_layanan', 'cs')
-        //     ->where('tanggal_antrian', '<', $skrg)
-        //     ->where('tanggal_antrian', '>', $waktuAntri)
-        //     ->where('tanggal_antrian', '>', $HariIni)
-        //     ->orderBy('id', 'desc')
-        //     ->pluck('no_antrian')
-        //     ->first();
-
         $panggilK = DB::table('antrians')
             ->where('jenis_layanan', 'karantina')
             ->where('tanggal_antrian', '<', $skrg)
@@ -307,6 +279,7 @@ class DashboardController extends Controller
             'jumlahM' => $jumlahM,
             'panggilM' => $panggilM,
             'nextantriM' => $nextantriM,
+            'antrisisaM' => $antrisisaM,
             'sisaM' => $sisaM,
         ]);
     }
@@ -364,6 +337,7 @@ class DashboardController extends Controller
             'jumlahCS' => $jumlahCS,
             'panggilCS' => $panggilCS,
             'nextantriCS' => $nextantriCS,
+            'antrisisaCS' => $antrisisaCS,
             'sisaCS' => $sisaCS,
         ]);
     }

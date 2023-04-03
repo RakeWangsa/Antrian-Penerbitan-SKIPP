@@ -32,25 +32,6 @@ class DaftarAntrianController extends Controller
         ->pluck('jeda')
         ->first();
 
-        // $waktuK = DB::table('antrians')
-        // ->where('jenis_layanan','karantina')
-        // ->where('tanggal_antrian', '<', $skrg)
-        // ->orderBy('id', 'desc')
-        // ->pluck('tanggal_antrian')
-        // ->first();
-        // $waktuM = DB::table('antrians')
-        // ->where('jenis_layanan','mutu')
-        // ->where('tanggal_antrian', '<', $skrg)
-        // ->orderBy('id', 'desc')
-        // ->pluck('tanggal_antrian')
-        // ->first();
-        // $waktuCS = DB::table('antrians')
-        // ->where('jenis_layanan','cs')
-        // ->where('tanggal_antrian', '<', $skrg)
-        // ->orderBy('id', 'desc')
-        // ->pluck('tanggal_antrian')
-        // ->first();
-
         $waktuAntriK=Carbon::parse($skrg)->subMinutes($jedaK);
         $waktuAntriM=Carbon::parse($skrg)->subMinutes($jedaM);
         $waktuAntriCS=Carbon::parse($skrg)->subMinutes($jedaCS);
@@ -127,10 +108,6 @@ class DaftarAntrianController extends Controller
             ->first();
         }
 
-        
-
-        
-
         return view('antrian.daftarAntrian.pengunjung', [
             "title" => "Daftar Antrian",
             'active' => 'daftar antrian',
@@ -145,7 +122,6 @@ class DaftarAntrianController extends Controller
 
     public function da_opk()
     {
-        // $skrgmin10 = Carbon::now()->addHours(7)->subMinutes(10);
         $skrg = Carbon::now()->addHours(7);
         $AntrianK = DB::table('antrians')
             ->where('tanggal_antrian', '>', $skrg)
@@ -246,24 +222,6 @@ class DaftarAntrianController extends Controller
             'antrianCS' => $antrianCS,
         ]);
     }
-
-    // public function editStatus()
-    // {
-    //     $no_ppk = request()->segment(2);
-
-    //     return view('antrian.editStatus', [
-    //         "title" => "Edit Status",
-    //         'active' => 'edit status',
-    //         'no_ppk' => $no_ppk
-    //     ]);
-    // }
-    // public function submitStatus(Request $request)
-    // {
-    //     Antrian::where('no_ppk', $request->no_ppk)->update([
-    //         "status"=> $request->status,
-    //     ]);
-    //     return redirect('/daftar/antrian/karantina')->with('success');
-    // }
 
     public function statusDiproses($no_ppk)
     {
