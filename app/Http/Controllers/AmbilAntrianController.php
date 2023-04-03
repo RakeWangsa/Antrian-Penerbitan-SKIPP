@@ -270,6 +270,52 @@ class AmbilAntrianController extends Controller
     }
 
 
+    // public function hapusAntrian($id)
+    // {
+    //     $id = base64_decode($id);
+    //     $skrg = Carbon::now()->addHours(7);
+    //     $layanan = DB::table('antrians')
+    //         ->where('id', $id)
+    //         ->pluck('jenis_layanan')
+    //         ->first();
+
+    //     $antrianSkrg = DB::table('antrians')
+    //                 ->where('tanggal_antrian', '<', $skrg)
+    //                 ->where('jenis_layanan', $layanan)
+    //                 ->orderBy('tanggal_antrian','desc')
+    //                 ->pluck('tanggal_antrian')
+    //                 ->first();
+
+    //     $antrians = DB::table('antrians')
+    //                 ->where('tanggal_antrian', '>', $antrianSkrg)
+    //                 ->where('jenis_layanan', $layanan)
+    //                 ->orderBy('tanggal_antrian')
+    //                 ->get();
+
+    //     $jumlah = count($antrians);
+
+    //     for ($i = 0; $i < $jumlah; $i++) {
+    //         if ($i == 0) {
+    //             Antrian::where('id', $antrians[$i]->id)
+    //                 ->update([
+    //                     'tanggal_antrian' => $antrianSkrg,
+    //                     'updated_at' => Carbon::now()
+    //                 ]);
+    //         } else {
+    //             $prevTime = $antrians[$i - 1]->tanggal_antrian;
+    //             Antrian::where('id', $antrians[$i]->id)
+    //                 ->update([
+    //                     'tanggal_antrian' => $prevTime,
+    //                     'updated_at' => Carbon::now()
+    //                 ]);
+    //         }
+    //     }
+
+    //     Antrian::where('id', $id)->delete();
+
+    //     return redirect('/ambil/antrian')->with('success');
+    // }
+
     public function hapusAntrian($id)
     {
         $id = base64_decode($id);
@@ -279,15 +325,13 @@ class AmbilAntrianController extends Controller
             ->pluck('jenis_layanan')
             ->first();
 
-        $antrianSkrg = DB::table('antrians')
-                    ->where('tanggal_antrian', '<', $skrg)
-                    ->where('jenis_layanan', $layanan)
-                    ->orderBy('tanggal_antrian','desc')
+        $antrianIni = DB::table('antrians')
+                    ->where('id', $id)
                     ->pluck('tanggal_antrian')
                     ->first();
 
         $antrians = DB::table('antrians')
-                    ->where('tanggal_antrian', '>', $antrianSkrg)
+                    ->where('tanggal_antrian', '>', $antrianIni)
                     ->where('jenis_layanan', $layanan)
                     ->orderBy('tanggal_antrian')
                     ->get();
@@ -298,7 +342,7 @@ class AmbilAntrianController extends Controller
             if ($i == 0) {
                 Antrian::where('id', $antrians[$i]->id)
                     ->update([
-                        'tanggal_antrian' => $antrianSkrg,
+                        'tanggal_antrian' => $antrianIni,
                         'updated_at' => Carbon::now()
                     ]);
             } else {
