@@ -21,6 +21,6 @@
         <script src="{{asset('admintemplate/js/tinymce.min.js')}}"></script>
         <script src="{{asset('admintemplate/js/validate.js')}}"></script>
         <script src="{{asset('admintemplate/js/main.js')}}"></script>       
-        <script src="{{asset('admintemplate/js/calendar.js')}}"></script>       
+        <script src="{{asset('admintemplate/js/calendar.js')}}"></script>      
    </body>
 </html>

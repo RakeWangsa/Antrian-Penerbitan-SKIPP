@@ -94,7 +94,6 @@
                                         audio.play();
                                     }
                                     </script>
-                                    <a class="btn btn-warning" style="border-radius: 100px;" a href="#"><i class="bi bi-telephone-plus"></i></a>
                                 </td>
                                 @else
                                 <td>Tidak ada antrian</td>
@@ -116,7 +115,6 @@
                                         audio.play();
                                     }
                                     </script>
-                                    <a class="btn btn-warning" style="border-radius: 100px;" a href="#"><i class="bi bi-telephone-plus"></i></a>
                                 </td>
                         </tr>
                         @endforeach
