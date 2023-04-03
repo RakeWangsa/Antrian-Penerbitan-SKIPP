@@ -10,21 +10,6 @@
         </ol>
         </nav>
     </div>
-    
-    <div class="col-lg-12">
-        <div class="col-xxl-12 col-md-12">
-            <div class="card info-card mic-card">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <div class="card-icon2 rounded-circle d-flex align-items-center justify-content-center"> <i class="bi bi-mic-fill" style="color: #012970;"></i></div>
-                        <div class="pt-2 ps-2">
-                           <h5 class="fw-bold" style="color: #012970;">Panggilan Antrian</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>              
-        </div>           
-    </div>
     <div class="row">
         <div class="col-xxl-3 col-md-3">
             <div class="card info-card ja-card">
@@ -80,6 +65,8 @@
                 </div>
             </div>
         </div>
+    </div>  
+    <div class="row">
         <div class="col-xxl-12 col-md-12">
             <div class="card">
                 <div class="card-body">
@@ -131,13 +118,13 @@
                                     </script>
                                     <a class="btn btn-warning" style="border-radius: 100px;" a href="#"><i class="bi bi-telephone-plus"></i></a>
                                 </td>
-                        </tr>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
                 </div>
             </div>
         </div>
-    </div>  
+    </div>
     
 @endsection

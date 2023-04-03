@@ -317,7 +317,7 @@ class DashboardController extends Controller
             ->first();
         }else{
             $panggilCS = DB::table('antrians')
-            ->where('jenis_layanan', 'mutu')
+            ->where('jenis_layanan', 'cs')
             ->where('tanggal_antrian', '>', $waktuAntriCS)
             ->orderBy('id', 'desc')
             ->pluck('no_antrian')
