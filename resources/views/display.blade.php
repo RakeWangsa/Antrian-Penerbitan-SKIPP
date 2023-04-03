@@ -8,21 +8,6 @@
             <marquee scrollamount="10" style="font-size: 35px; font-weight: 700;" >SELAMAT DATANG DI SISTEM ANTRIAN ONLINE</marquee>
         </header>
         <div class="row" style="margin-top: 130px; margin-left: 20px;">
-            <audio id="myAudio" controls>
-                <source src="{{ asset('audio/cs1.mp3') }}" type="audio/mpeg">
-                Your browser does not support the audio element.
-              </audio>
-              
-              <script>
-                document.addEventListener("DOMContentLoaded", function(event) { 
-                  var audio = new Audio("{{ asset('audio/cs1.mp3') }}");
-                  audio.play();
-                });
-              </script>
-              
-              
-              
-            
             <div class="col-lg-12">
                 <div class="row">
                     <div class="col-xxl-6 col-md-6">

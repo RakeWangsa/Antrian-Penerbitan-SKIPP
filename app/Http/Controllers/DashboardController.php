@@ -249,6 +249,7 @@ class DashboardController extends Controller
             'jumlahK' => $jumlahK,
             'panggilK' => $panggilK,
             'nextantriK' => $nextantriK,
+            'antrisisaK' => $antrisisaK,
             'sisaK' => $sisaK,
         ]);
     }
