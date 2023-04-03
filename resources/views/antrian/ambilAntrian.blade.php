@@ -70,8 +70,12 @@
                               <td>{{ $item->no_ppk }}</td>
                               <td>{{ $item->tanggal_antrian }}</td>
                               <td class="text-center">
-                                <a class="btn btn-success" style="border-radius: 100px;" a href="{{ route('cetakAntrian', ['no_ppk' => base64_encode($item->no_ppk)]) }}"><i class="bi bi-printer"></i></a>
+                                <a class="btn btn-success" style="border-radius: 100px;" a href="{{ route('cetakAntrian', ['id' => base64_encode($item->id)]) }}"><i class="bi bi-printer"></i></a>
+                                @if($item->jenis_layanan=='cs')
+                                <button class="btn btn-warning edit-btn" style="border-radius: 100px;"><i class="bi bi-pencil-square text-white"></i></button>
+                                @else
                                 <a class="btn btn-warning" style="border-radius: 100px;" a href="{{ route('editAntrian', ['no_ppk' => base64_encode($item->no_ppk)]) }}"><i class="bi bi-pencil-square text-white"></i></a>
+                                @endif
                                 <a class="btn btn-danger" style="border-radius: 100px;" onclick="return confirm('Apakah anda yakin?')" a href="{{ route('hapusAntrian', ['no_ppk' => base64_encode($item->no_ppk)]) }}"><i class="bi bi-trash"></i></a>
                               </td>
                            </tr>
@@ -82,6 +86,17 @@
             </div>
         </div>
     </section>
+    <script>
+        // Ambil semua tombol dengan class "edit-btn"
+        const editButtons = document.querySelectorAll(".edit-btn");
+
+        // Tambahkan event listener pada setiap tombol
+        editButtons.forEach(button => {
+            button.addEventListener("click", () => {
+            alert("Fitur edit no ppk tidak tersedia untuk layanan cs");
+            });
+        });
+    </script>
     <script>
         document.getElementById("jenislayanan").addEventListener("change", function() {
           if (this.value === "cs") {

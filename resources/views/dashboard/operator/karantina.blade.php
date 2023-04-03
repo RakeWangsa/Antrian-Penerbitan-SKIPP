@@ -11,7 +11,7 @@
         </nav>
     </div>
     
-    {{-- <div class="col-lg-12">
+    <div class="col-lg-12">
         <div class="col-xxl-12 col-md-12">
             <div class="card info-card mic-card">
                 <div class="card-body">
@@ -24,7 +24,7 @@
                 </div>
             </div>              
         </div>           
-    </div> --}}
+    </div>
     <div class="row">
         <div class="col-xxl-3 col-md-3">
             <div class="card info-card ja-card">
@@ -80,7 +80,7 @@
                 </div>
             </div>
         </div>
-        {{-- <div class="col-xxl-12 col-md-12">
+        <div class="col-xxl-12 col-md-12">
             <div class="card">
                 <div class="card-body">
                 <h5 class="card-title">Panggil Antrian</h5>
@@ -95,7 +95,10 @@
                         <tr style="text-align: center">
                             <td>Brandon Jacob</td>
                             <td>
-                                <a class="btn btn-success" style="border-radius: 100px;" a href="#"><i class="bi bi-telephone"></i></a>
+                                <button class="btn btn-success" style="border-radius: 100px;" onclick="playAudio()"><i class="bi bi-telephone"></i></button>
+                                <audio id="myAudio">
+                                <source src="{{ asset('audio/cs1.mp3') }}" type="audio/mpeg">
+                                </audio>
                                 <a class="btn btn-warning" style="border-radius: 100px;" a href="#"><i class="bi bi-telephone-plus"></i></a>
                             </td>
                         </tr>
@@ -103,6 +106,12 @@
                 </table>
                 </div>
             </div>
-        </div> --}}
+        </div>
     </div>  
+    <script>
+        function playAudio() {
+          var audio = document.getElementById("myAudio");
+          audio.play();
+        }
+        </script>
 @endsection
