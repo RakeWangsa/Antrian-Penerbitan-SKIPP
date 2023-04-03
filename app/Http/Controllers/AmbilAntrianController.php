@@ -16,9 +16,17 @@ class AmbilAntrianController extends Controller
     public function index()
     {
         $email=session('email');
+        $skrg = Carbon::now()->addHours(7);
         $skrgmin10 = Carbon::now()->addHours(7)->subMinutes(10);
         $Antrianku = DB::table('antrians')
             ->where('tanggal_antrian', '>', $skrgmin10)
+            ->where('tanggal_antrian', '<', $skrg)
+            ->where('email', $email)
+            ->orderBy('id', 'asc')
+            ->select('id','no_antrian', 'no_ppk', 'tanggal_antrian','jenis_layanan')
+            ->get();
+        $Antrianku2 = DB::table('antrians')
+            ->where('tanggal_antrian', '>', $skrg)
             ->where('email', $email)
             ->orderBy('id', 'asc')
             ->select('id','no_antrian', 'no_ppk', 'tanggal_antrian','jenis_layanan')
@@ -31,6 +39,7 @@ class AmbilAntrianController extends Controller
             "title" => "Ambil Antrian",
             'active' => 'antrian',
             'antrianku' => $Antrianku,
+            'antrianku2' => $Antrianku2,
             'PPK' => $PPK,
         ]);
     }
@@ -204,94 +213,6 @@ class AmbilAntrianController extends Controller
         }
         return redirect('/ambil/antrian')->with('success');
     }
-    // public function tampil(Request $request){
-        
-    //     $skrg = Carbon::now()->addHours(7);
-    //     $HariIni = Carbon::now()->addHours(7)->startOfDay();
-
-    //     $antrianK = DB::table('antrians')
-    //         ->where('jenis_layanan', 'karantina')
-    //         ->where('tanggal_antrian', '<', $skrg)
-    //         ->where('tanggal_antrian', '>', $HariIni)
-    //         ->orderBy('id', 'desc')
-    //         ->pluck('no_antrian')
-    //         ->first();
-            
-    //     $antrianM = DB::table('antrians')
-    //         ->where('jenis_layanan', 'mutu')
-    //         ->where('tanggal_antrian', '<', $skrg)
-    //         ->where('tanggal_antrian', '>', $HariIni)
-    //         ->orderBy('id', 'desc')
-    //         ->pluck('no_antrian')
-    //         ->first();
-
-    //     $antrianCS = DB::table('antrians')
-    //         ->where('jenis_layanan', 'cs')
-    //         ->where('tanggal_antrian', '<', $skrg)
-    //         ->where('tanggal_antrian', '>', $HariIni)
-    //         ->orderBy('id', 'desc')
-    //         ->pluck('no_antrian')
-    //         ->first();
-
-    //     $panggilK = DB::table('antrians')
-    //         ->where('jenis_layanan', 'karantina')
-    //         ->where('tanggal_antrian', '<', $skrg)
-    //         ->where('tanggal_antrian', '>', $HariIni)
-    //         ->orderBy('id', 'desc')
-    //         ->select('no_antrian', 'no_ppk', 'tanggal_antrian')
-    //         ->first();
-
-    //     $panggilM = DB::table('antrians')
-    //         ->where('jenis_layanan', 'mutu')
-    //         ->where('tanggal_antrian', '<', $skrg)
-    //         ->where('tanggal_antrian', '>', $HariIni)
-    //         ->orderBy('id', 'desc')
-    //         ->select('no_antrian', 'no_ppk', 'tanggal_antrian')
-    //         ->first();
-
-    //     $panggilCS = DB::table('antrians')
-    //         ->where('jenis_layanan', 'cs')
-    //         ->where('tanggal_antrian', '<', $skrg)
-    //         ->where('tanggal_antrian', '>', $HariIni)
-    //         ->orderBy('id', 'desc')
-    //         ->select('no_antrian', 'no_ppk', 'tanggal_antrian')
-    //         ->first();
-
-    //     $listK = DB::table('antrians')
-    //         ->where('jenis_layanan', 'karantina')
-    //         ->where('tanggal_antrian', '>', $skrg)
-    //         ->orderBy('id', 'asc')
-    //         ->select('no_antrian', 'no_ppk', 'tanggal_antrian')
-    //         ->get();
-
-    //     $listM = DB::table('antrians')
-    //         ->where('jenis_layanan', 'mutu')
-    //         ->where('tanggal_antrian', '>', $skrg)
-    //         ->orderBy('id', 'asc')
-    //         ->select('no_antrian', 'no_ppk', 'tanggal_antrian')
-    //         ->get();
-
-    //     $listCS = DB::table('antrians')
-    //         ->where('jenis_layanan', 'cs')
-    //         ->where('tanggal_antrian', '>', $skrg)
-    //         ->orderBy('id', 'asc')
-    //         ->select('no_antrian', 'no_ppk', 'tanggal_antrian')
-    //         ->get();
-
-    //     return view('antrian.ambilAntrian', [
-    //         "title" => "Ambil Antrian",
-    //         'active' => 'ambil antrian',
-    //         'antrianK'=> $antrianK,
-    //         'antrianM'=> $antrianM,
-    //         'antrianCS'=> $antrianCS,
-    //         'listK'=> $listK,
-    //         'listM'=> $listM,
-    //         'listCS'=> $listCS,
-    //         'panggilK'=> $panggilK,
-    //         'panggilM'=> $panggilM,
-    //         'panggilCS'=> $panggilCS,
-    //     ]);
-    // }
 
     public function cetakAntrian($id)
     {

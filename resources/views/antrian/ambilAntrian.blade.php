@@ -50,7 +50,7 @@
         <div class="row">
             <div class="card col-md-12 mt-2">
                 <div class="card-body">
-                     <h5 class="card-title">Daftar Antrian Anda</h5>
+                     <h5 class="card-title">Daftar Antrian Anda (Sudah Dilayani)</h5>
                      <table class="table table-bordered">
                         <thead>
                            <tr class="text-center">
@@ -64,6 +64,44 @@
                         <tbody>
                             @php($no=1)
                             @foreach ($antrianku as $item)
+                           <tr>
+                              <th scope="row" class="text-center">{{ $no++ }}</th>
+                              <td class="text-center">{{ $item->no_antrian }}</td>
+                              <td class="text-center">{{ $item->no_ppk }}</td>
+                              <td class="text-center">{{ $item->tanggal_antrian }}</td>
+                              <td class="text-center">
+                                <a class="btn btn-success" style="border-radius: 100px;" a href="{{ route('cetakAntrian', ['id' => base64_encode($item->id)]) }}"><i class="bi bi-printer"></i></a>
+                                @if($item->jenis_layanan=='cs')
+                                <button class="btn btn-warning edit-btn" style="border-radius: 100px;"><i class="bi bi-pencil-square text-white"></i></button>
+                                @else
+                                <a class="btn btn-warning" style="border-radius: 100px;" a href="{{ route('editAntrian', ['no_ppk' => base64_encode($item->no_ppk)]) }}"><i class="bi bi-pencil-square text-white"></i></a>
+                                @endif
+                                <a class="btn btn-danger" style="border-radius: 100px;" onclick="return confirm('Apakah anda yakin?')" a href="{{ route('hapusAntrian', ['id' => base64_encode($item->id)]) }}"><i class="bi bi-trash"></i></a>
+                              </td>
+                           </tr>
+                           @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="card col-md-12 mt-2">
+                <div class="card-body">
+                     <h5 class="card-title">Daftar Antrian Anda (Belum Dilayani)</h5>
+                     <table class="table table-bordered">
+                        <thead>
+                           <tr class="text-center">
+                              <th scope="col">No</th>
+                              <th scope="col">No Antrian</th>
+                              <th scope="col">No PPK</th>
+                              <th scope="col">Waktu Antri</th>
+                              <th scope="col">Action</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                            @php($no=1)
+                            @foreach ($antrianku2 as $item)
                            <tr>
                               <th scope="row" class="text-center">{{ $no++ }}</th>
                               <td class="text-center">{{ $item->no_antrian }}</td>

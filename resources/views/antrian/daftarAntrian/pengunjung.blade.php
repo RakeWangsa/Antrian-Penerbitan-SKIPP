@@ -41,12 +41,12 @@
         <ul class="list-group">
             <li class="list-group-item list-group-item-warning" aria-current="true">Antrian Customer Service</li>
             @if(isset($panggilCS->no_antrian))
-                <li class="list-group-item" style="background-color: #ffc107">{{ $panggilCS->no_antrian }} - {{ $panggilCS->no_ppk }} - {{ $panggilCS->tanggal_antrian }}</li>
+                <li class="list-group-item" style="background-color: #ffc107">{{ $panggilCS->no_antrian }} - {{ $panggilCS->tanggal_antrian }}</li>
             @else
                 <li class="list-group-item">Tidak ada antrian</li>
             @endif
             @foreach ($listCS as $item)
-                <li class="list-group-item">{{ $item->no_antrian }} - {{ $item->no_ppk }} - {{ $item->tanggal_antrian }}</li>
+                <li class="list-group-item">{{ $item->no_antrian }} - {{ $item->tanggal_antrian }}</li>
             @endforeach
           </ul>
     </div>
