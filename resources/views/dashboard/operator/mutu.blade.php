@@ -66,4 +66,64 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-xxl-12 col-md-12">
+            <div class="card">
+                <div class="card-body">
+                <h5 class="card-title">Panggil Antrian</h5>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-center">No Antrian</th>
+                            <th scope="col" class="text-center">Panggil</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="text-align: center">
+                            @if(isset($panggilM))
+                                <td>{{ $panggilM }}</td>
+                                <td>
+                                    <button class="btn btn-success" style="border-radius: 100px;" onclick="playAudio('{{ $panggilM }}')"><i class="bi bi-telephone"></i></button>
+                                    <audio id="myAudio_{{ $panggilM }}">
+                                    <source src="{{ asset('audio/'.$panggilM.'.mp3') }}" type="audio/mpeg">
+                                    </audio>
+                                    <script>
+                                    function playAudio(panggil) {
+                                        var audio = document.getElementById("myAudio_" + panggil);
+                                        audio.currentTime = 0; // untuk memulai ulang audio dari awal
+                                        audio.play();
+                                    }
+                                    </script>
+                                    <a class="btn btn-warning" style="border-radius: 100px;" a href="#"><i class="bi bi-telephone-plus"></i></a>
+                                </td>
+                                @else
+                                <td>Tidak ada antrian</td>
+                                <td></td>
+                            @endif
+                        </tr>
+                        @foreach ($antrisisaM as $item)
+                        <tr style="text-align: center">
+                                <td>{{ $item->no_antrian }}</td>
+                                <td>
+                                    <button class="btn btn-success" style="border-radius: 100px;" onclick="playAudio('{{ $item->no_antrian }}')"><i class="bi bi-telephone"></i></button>
+                                    <audio id="myAudio_{{ $item->no_antrian }}">
+                                    <source src="{{ asset('audio/'.$item->no_antrian.'.mp3') }}" type="audio/mpeg">
+                                    </audio>
+                                    <script>
+                                    function playAudio(panggil) {
+                                        var audio = document.getElementById("myAudio_" + panggil);
+                                        audio.currentTime = 0; // untuk memulai ulang audio dari awal
+                                        audio.play();
+                                    }
+                                    </script>
+                                    <a class="btn btn-warning" style="border-radius: 100px;" a href="#"><i class="bi bi-telephone-plus"></i></a>
+                                </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
