@@ -348,26 +348,56 @@ class AmbilAntrianController extends Controller
         return redirect('/ambil/antrian')->with('success');
     }
 
-    public function hapusAntrian($no_ppk)
+
+    public function hapusAntrian($id)
     {
-        $no_ppk = base64_decode($no_ppk);
+        $id = base64_decode($id);
         $skrg = Carbon::now()->addHours(7);
         $layanan = DB::table('antrians')
-            ->where('no_ppk', $no_ppk)
+            ->where('id', $id)
             ->pluck('jenis_layanan')
             ->first();
 
-        Antrian::where('jenis_layanan', $layanan)
-        ->where('tanggal_antrian', '>', $skrg)
-        ->update([
-             'tanggal_antrian' => DB::raw("DATEADD(minute, -10, CONVERT(datetime, tanggal_antrian, 121))"),
-             'updated_at' => Carbon::now()
-         ]);
+        $antrianSkrg = DB::table('antrians')
+                    ->where('tanggal_antrian', '<', $skrg)
+                    ->where('jenis_layanan', $layanan)
+                    ->orderBy('tanggal_antrian','desc')
+                    ->pluck('tanggal_antrian')
+                    ->first();
 
-        Antrian::where('no_ppk', $no_ppk)->delete();
+        $antrians = DB::table('antrians')
+                    ->where('tanggal_antrian', '>', $antrianSkrg)
+                    ->where('jenis_layanan', $layanan)
+                    ->orderBy('tanggal_antrian')
+                    ->get();
+
+        $jumlah = count($antrians);
+
+        for ($i = 0; $i < $jumlah; $i++) {
+            if ($i == 0) {
+                Antrian::where('id', $antrians[$i]->id)
+                    ->update([
+                        'tanggal_antrian' => $antrianSkrg,
+                        'updated_at' => Carbon::now()
+                    ]);
+            } else {
+                $prevTime = $antrians[$i - 1]->tanggal_antrian;
+                Antrian::where('id', $antrians[$i]->id)
+                    ->update([
+                        'tanggal_antrian' => $prevTime,
+                        'updated_at' => Carbon::now()
+                    ]);
+            }
+        }
+
+        Antrian::where('id', $id)->delete();
 
         return redirect('/ambil/antrian')->with('success');
     }
+
+
+
+
 
     public function setting()
     {

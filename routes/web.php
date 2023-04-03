@@ -23,7 +23,7 @@ Route::get('/ambil/antrian/submit', [AmbilAntrianController::class, 'ambil'])->n
 Route::get('/cetakAntrian/{id}', [AmbilAntrianController::class, 'cetakAntrian'])->name('cetakAntrian')->middleware('auth');
 Route::get('/editAntrian/{no_ppk}', [AmbilAntrianController::class, 'editAntrian'])->name('editAntrian')->middleware('auth');
 Route::get('/editAntrian/submit/{no_ppk}', [AmbilAntrianController::class, 'edit'])->name('edit')->middleware('auth');
-Route::get('/hapusAntrian/{no_ppk}', [AmbilAntrianController::class, 'hapusAntrian'])->name('hapusAntrian')->middleware('auth');
+Route::get('/hapusAntrian/{id}', [AmbilAntrianController::class, 'hapusAntrian'])->name('hapusAntrian')->middleware('auth');
 Route::get('/daftar/antrian', [DaftarAntrianController::class, 'tampil']);
 
 Route::group(['middleware' => ['auth', 'ceklevel:opk']], function() {
