@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class ManagementController extends Controller
 {
@@ -36,4 +38,33 @@ class ManagementController extends Controller
             'ocs' => $ocs
         ]);
     }
+
+    public function tambah(Request $request)
+    {
+        $operator = request()->segment(2);
+        return view('register.tambahOperator', [
+            'title' => 'Tambah Operator',
+            'active' => 'tambah operator',
+            'operator' => $operator
+        ]);
+    }
+
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required|email:dns|unique:users',
+            'password' => 'required|min:5|max:255'
+        ]);
+        $validatedData['level'] = $request->level;
+        //$validatedData['password'] = bcrypt($validatedData['password']);
+        $validatedData['password'] = Hash::make($validatedData['password']);
+
+        User::create($validatedData);
+
+        //$request->session()->flash('success', 'Registration successfully! Please login!');
+
+        return redirect('/login')->with('success', 'Registrasi Berhasil! Silahkan Login!');
+    }
+
 }

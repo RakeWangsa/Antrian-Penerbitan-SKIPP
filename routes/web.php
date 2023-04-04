@@ -54,6 +54,8 @@ Route::group(['middleware' => ['auth', 'ceklevel:ocs']], function() {
 Route::group(['middleware' => ['auth', 'ceklevel:admin']], function() {
     route::get('/dashboard/admin', [DashboardController::class, 'dash_admin']);
     Route::get('/managementUser', [ManagementController::class, 'index'])->name('managementUser')->middleware('auth');
+    Route::get('/tambahOperator/{operator}', [ManagementController::class, 'tambah'])->name('tambahOperator')->middleware('auth');
+    Route::post('/tambahOperator', [ManagementController::class, 'store'])->middleware('auth');
     Route::get('/daftar/antrian/admin', [DaftarAntrianController::class, 'da_admin']);
     route::get('/setting/admin', [AmbilAntrianController::class, 'setting'])->name('setting')->middleware('auth');
     route::get('/setting/admin/save', [AmbilAntrianController::class, 'saveSetting'])->name('saveSetting')->middleware('auth');

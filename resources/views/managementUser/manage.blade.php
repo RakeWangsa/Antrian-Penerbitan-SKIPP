@@ -8,6 +8,19 @@
        <li class="breadcrumb-item"><a href="/dashboard/admin">Home</a></li>
        <li class="breadcrumb-item active">Daftar User</li>
    </ol>
+   <!-- Dropdown menu -->
+      <div class="dropdown">
+         <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+         Tambah Operator
+         </a>
+      
+         <!-- Dropdown items -->
+         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+         <li><a class="dropdown-item" href="/tambahOperator/opk">Karantina</a></li>
+         <li><a class="dropdown-item" href="/tambahOperator/opm">Mutu</a></li>
+         <li><a class="dropdown-item" href="/tambahOperator/ocs">CS</a></li>
+         </ul>
+      </div>
    </nav>
 </div>
 
