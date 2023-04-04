@@ -67,9 +67,9 @@
                       <td>{{ $item->email }}</td>
                       <td>{{ $item->status }}</td>
                       <td>
-                        <a class="btn btn-primary" style="border-radius: 100px;" a href="{{ route('statusDiprosesM', ['no_ppk' => base64_encode($item->no_ppk)]) }}"><i class="bi bi-check-circle text-white"></i></a>
-                        <a class="btn btn-warning" style="border-radius: 100px;" a href="{{ route('statusRecallM', ['no_ppk' => base64_encode($item->no_ppk)]) }}"><i class="bi bi-telephone-forward text-white"></i></a>
-                        <a class="btn btn-danger" style="border-radius: 100px;" a href="{{ route('statusCancelM', ['no_ppk' => base64_encode($item->no_ppk)]) }}"><i class="bi bi-x-circle text-white"></i></a>
+                        <a class="btn btn-primary" style="border-radius: 100px;" a href="{{ route('statusDiprosesM', ['id' => base64_encode($item->id)]) }}"><i class="bi bi-check-circle text-white"></i></a>
+                        <a class="btn btn-warning" style="border-radius: 100px;" a href="{{ route('statusRecallM', ['id' => base64_encode($item->id)]) }}"><i class="bi bi-telephone-forward text-white"></i></a>
+                        <a class="btn btn-danger" style="border-radius: 100px;" a href="{{ route('statusCancelM', ['id' => base64_encode($item->id)]) }}"><i class="bi bi-x-circle text-white"></i></a>
                       </td>
                    </tr>
                    @endforeach
@@ -113,9 +113,9 @@
                       <td>{{ $item->email }}</td>
                       <td>{{ $item->status }}</td>
                       <td>
-                        <a class="btn btn-primary" style="border-radius: 100px;" a href="{{ route('statusDiprosesM', ['no_ppk' => base64_encode($item->no_ppk)]) }}"><i class="bi bi-check-circle text-white"></i></a>
-                        <a class="btn btn-warning" style="border-radius: 100px;" a href="{{ route('statusRecallM', ['no_ppk' => base64_encode($item->no_ppk)]) }}"><i class="bi bi-telephone-forward text-white"></i></a>
-                        <a class="btn btn-danger" style="border-radius: 100px;" a href="{{ route('statusCancelM', ['no_ppk' => base64_encode($item->no_ppk)]) }}"><i class="bi bi-x-circle text-white"></i></a>
+                        <a class="btn btn-primary" style="border-radius: 100px;" a href="{{ route('statusDiprosesM', ['id' => base64_encode($item->id)]) }}"><i class="bi bi-check-circle text-white"></i></a>
+                        <a class="btn btn-warning" style="border-radius: 100px;" a href="{{ route('statusRecallM', ['id' => base64_encode($item->id)]) }}"><i class="bi bi-telephone-forward text-white"></i></a>
+                        <a class="btn btn-danger" style="border-radius: 100px;" a href="{{ route('statusCancelM', ['id' => base64_encode($item->id)]) }}"><i class="bi bi-x-circle text-white"></i></a>
                       </td>
                    </tr>
                    @endforeach

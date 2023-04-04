@@ -127,14 +127,14 @@ class DaftarAntrianController extends Controller
             ->where('tanggal_antrian', '>', $skrg)
             ->where('jenis_layanan', 'karantina')
             ->orderBy('id', 'asc')
-            ->select('no_antrian', 'no_ppk', 'tanggal_antrian', 'email', 'status')
+            ->select('id', 'no_antrian', 'no_ppk', 'tanggal_antrian', 'email', 'status')
             ->get();
 
         $SudahAntriK = DB::table('antrians')
             ->where('tanggal_antrian', '<', $skrg)
             ->where('jenis_layanan', 'karantina')
             ->orderBy('id', 'desc')
-            ->select('no_antrian', 'no_ppk', 'tanggal_antrian', 'email', 'status')
+            ->select('id', 'no_antrian', 'no_ppk', 'tanggal_antrian', 'email', 'status')
             ->get();
         
 
@@ -153,14 +153,14 @@ class DaftarAntrianController extends Controller
             ->where('tanggal_antrian', '>', $skrg)
             ->where('jenis_layanan', 'mutu')
             ->orderBy('id', 'asc')
-            ->select('no_antrian', 'no_ppk', 'tanggal_antrian', 'email', 'status')
+            ->select('id', 'no_antrian', 'no_ppk', 'tanggal_antrian', 'email', 'status')
             ->get();
 
         $SudahAntriM = DB::table('antrians')
             ->where('tanggal_antrian', '<', $skrg)
             ->where('jenis_layanan', 'mutu')
             ->orderBy('id', 'desc')
-            ->select('no_antrian', 'no_ppk', 'tanggal_antrian', 'email', 'status')
+            ->select('id', 'no_antrian', 'no_ppk', 'tanggal_antrian', 'email', 'status')
             ->get();
 
         return view('antrian.daftarAntrian.operatorMutu', [
@@ -178,14 +178,14 @@ class DaftarAntrianController extends Controller
             ->where('tanggal_antrian', '>', $skrg)
             ->where('jenis_layanan', 'cs')
             ->orderBy('id', 'asc')
-            ->select('no_antrian', 'no_ppk', 'tanggal_antrian', 'email', 'status')
+            ->select('id', 'no_antrian', 'no_ppk', 'tanggal_antrian', 'email', 'status')
             ->get();
 
         $SudahAntriCS = DB::table('antrians')
             ->where('tanggal_antrian', '<', $skrg)
             ->where('jenis_layanan', 'cs')
             ->orderBy('id', 'desc')
-            ->select('no_antrian', 'no_ppk', 'tanggal_antrian', 'email', 'status')
+            ->select('id', 'no_antrian', 'no_ppk', 'tanggal_antrian', 'email', 'status')
             ->get();
 
         return view('antrian.daftarAntrian.operatorCS', [
@@ -223,92 +223,92 @@ class DaftarAntrianController extends Controller
         ]);
     }
 
-    public function statusDiproses($no_ppk)
+    public function statusDiproses($id)
     {
-        $no_ppk = base64_decode($no_ppk);
+        $id = base64_decode($id);
 
-        Antrian::where('no_ppk', $no_ppk)->update([
+        Antrian::where('id', $id)->update([
             "status"=>"Diproses"
         ]);
         return redirect('/daftar/antrian/karantina')->with('success');
     }
 
-    public function statusRecall($no_ppk)
+    public function statusRecall($id)
     {
-        $no_ppk = base64_decode($no_ppk);
+        $id = base64_decode($id);
 
-        Antrian::where('no_ppk', $no_ppk)->update([
+        Antrian::where('id', $id)->update([
             "status"=>"Recall"
         ]);
         return redirect('/daftar/antrian/karantina')->with('success');
     }
 
-    public function statusCancel($no_ppk)
+    public function statusCancel($id)
     {
-        $no_ppk = base64_decode($no_ppk);
+        $id = base64_decode($id);
 
-        Antrian::where('no_ppk', $no_ppk)->update([
+        Antrian::where('id', $id)->update([
             "status"=>"Cancel"
         ]);
         return redirect('/daftar/antrian/karantina')->with('success');
     }
 
 
-    public function statusDiprosesM($no_ppk)
+    public function statusDiprosesM($id)
     {
-        $no_ppk = base64_decode($no_ppk);
+        $id = base64_decode($id);
 
-        Antrian::where('no_ppk', $no_ppk)->update([
+        Antrian::where('id', $id)->update([
             "status"=>"Diproses"
         ]);
         return redirect('/daftar/antrian/mutu')->with('success');
     }
 
-    public function statusRecallM($no_ppk)
+    public function statusRecallM($id)
     {
-        $no_ppk = base64_decode($no_ppk);
+        $id = base64_decode($id);
 
-        Antrian::where('no_ppk', $no_ppk)->update([
+        Antrian::where('id', $id)->update([
             "status"=>"Recall"
         ]);
         return redirect('/daftar/antrian/mutu')->with('success');
     }
 
-    public function statusCancelM($no_ppk)
+    public function statusCancelM($id)
     {
-        $no_ppk = base64_decode($no_ppk);
+        $id = base64_decode($id);
 
-        Antrian::where('no_ppk', $no_ppk)->update([
+        Antrian::where('id', $id)->update([
             "status"=>"Cancel"
         ]);
         return redirect('/daftar/antrian/mutu')->with('success');
     }
 
-        public function statusDiprosesCS($no_ppk)
+        public function statusDiprosesCS($id)
     {
-        $no_ppk = base64_decode($no_ppk);
+        $id = base64_decode($id);
 
-        Antrian::where('no_ppk', $no_ppk)->update([
+        Antrian::where('id', $id)->update([
             "status"=>"Diproses"
         ]);
         return redirect('/daftar/antrian/cs')->with('success');
     }
 
-    public function statusRecallCS($no_ppk)
+    public function statusRecallCS($id)
     {
-        $no_ppk = base64_decode($no_ppk);
+        $id = base64_decode($id);
 
-        Antrian::where('no_ppk', $no_ppk)->update([
+        Antrian::where('id', $id)->update([
             "status"=>"Recall"
         ]);
         return redirect('/daftar/antrian/cs')->with('success');
     }
 
-    public function statusCancelCS($no_ppk)
+    public function statusCancelCS($id)
     {
-        $no_ppk = base64_decode($no_ppk);
+        $id = base64_decode($id);
 
-        Antrian::where('no_ppk', $no_ppk)->update([
+        Antrian::where('id', $id)->update([
             "status"=>"Cancel"
         ]);
         return redirect('/daftar/antrian/cs')->with('success');
