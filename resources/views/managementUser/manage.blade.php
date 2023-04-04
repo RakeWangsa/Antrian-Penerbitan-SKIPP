@@ -61,6 +61,7 @@
                     <th scope="col">No</th>
                     <th scope="col">Nama</th>
                     <th scope="col">Email</th>
+                    <th scope="col">Action</th>
                    </tr>
                 </thead>
                 
@@ -72,6 +73,7 @@
                       <td scope="row">{{ $no++ }}</td>
                       <td>{{ $item->name }}</td>
                       <td>{{ $item->email }}</td>
+                      <td><a class="btn btn-danger" style="border-radius: 100px;" onclick="return confirm('Apakah anda yakin?')" a href="{{ route('hapusUser', ['id' => base64_encode($item->id)]) }}"><i class="bi bi-trash"></i></a></td>
                    </tr>
                    @endforeach
                    @else
@@ -95,6 +97,8 @@
                      <th scope="col">No</th>
                      <th scope="col">Nama</th>
                      <th scope="col">Email</th>
+                     <th scope="col">Action</th>
+                     
                   </tr>
                </thead>
                
@@ -106,6 +110,7 @@
                      <td scope="row">{{ $no++ }}</td>
                      <td>{{ $item->name }}</td>
                      <td>{{ $item->email }}</td>
+                     <td><a class="btn btn-danger" style="border-radius: 100px;" onclick="return confirm('Apakah anda yakin?')" a href="{{ route('hapusUser', ['id' => base64_encode($item->id)]) }}"><i class="bi bi-trash"></i></a></td>
                   </tr>
                   @endforeach
                   @else
@@ -129,6 +134,7 @@
                      <th scope="col">No</th>
                      <th scope="col">Nama</th>
                      <th scope="col">Email</th>
+                     <th scope="col">Action</th>
                   </tr>
                </thead>
                
@@ -140,6 +146,7 @@
                      <td scope="row">{{ $no++ }}</td>
                      <td>{{ $item->name }}</td>
                      <td>{{ $item->email }}</td>
+                     <td><a class="btn btn-danger" style="border-radius: 100px;" onclick="return confirm('Apakah anda yakin?')" a href="{{ route('hapusUser', ['id' => base64_encode($item->id)]) }}"><i class="bi bi-trash"></i></a></td>
                   </tr>
                   @endforeach
                   @else
@@ -163,6 +170,7 @@
                      <th scope="col">No</th>
                      <th scope="col">Nama</th>
                      <th scope="col">Email</th>
+                     <th scope="col">Action</th>
                   </tr>
                </thead>
                
@@ -174,6 +182,7 @@
                      <td scope="row">{{ $no++ }}</td>
                      <td>{{ $item->name }}</td>
                      <td>{{ $item->email }}</td>
+                     <td><a class="btn btn-danger" style="border-radius: 100px;" onclick="return confirm('Apakah anda yakin?')" a href="{{ route('hapusUser', ['id' => base64_encode($item->id)]) }}"><i class="bi bi-trash"></i></a></td>
                   </tr>
                   @endforeach
                   @else

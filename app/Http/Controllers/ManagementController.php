@@ -14,19 +14,19 @@ class ManagementController extends Controller
     {
         $pengunjung = DB::table('Users')
         ->where('level','pengunjung')
-        ->select('name', 'email')
+        ->select('id', 'name', 'email')
         ->get();
         $opk = DB::table('Users')
         ->where('level','opk')
-        ->select('name', 'email')
+        ->select('id', 'name', 'email')
         ->get();
         $opm = DB::table('Users')
         ->where('level','opm')
-        ->select('name', 'email')
+        ->select('id', 'name', 'email')
         ->get();
         $ocs = DB::table('Users')
         ->where('level','ocs')
-        ->select('name', 'email')
+        ->select('id', 'name', 'email')
         ->get();
 
         return view('managementUser.manage', [
@@ -64,7 +64,15 @@ class ManagementController extends Controller
 
         //$request->session()->flash('success', 'Registration successfully! Please login!');
 
-        return redirect('/login')->with('success', 'Registrasi Berhasil! Silahkan Login!');
+        return redirect('/managementUser')->with('success', 'Registrasi Berhasil!');
+    }
+
+    public function hapusUser($id)
+    {
+        $id = base64_decode($id);
+        User::where('id', $id)->delete();
+
+        return redirect('/managementUser')->with('success');
     }
 
 }
