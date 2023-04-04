@@ -495,4 +495,33 @@ class DashboardController extends Controller
             'sisaCS' => $sisaCS,
         ]);
     }
+
+    public function ManagementUser()
+    {
+        $pengunjung = DB::table('Users')
+        ->where('level','pengunjung')
+        ->select('name', 'email')
+        ->get();
+        $opk = DB::table('Users')
+        ->where('level','opk')
+        ->select('name', 'email')
+        ->get();
+        $opm = DB::table('Users')
+        ->where('level','opm')
+        ->select('name', 'email')
+        ->get();
+        $ocs = DB::table('Users')
+        ->where('level','ocs')
+        ->select('name', 'email')
+        ->get();
+
+        return view('managementUser.manage', [
+            'title' => 'Management User',
+            'active' => 'management user',
+            'pengunjung' => $pengunjung,
+            'opk' => $opk,
+            'opm' => $opm,
+            'ocs' => $ocs
+        ]);
+    }
 }

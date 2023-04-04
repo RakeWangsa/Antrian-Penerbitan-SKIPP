@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AmbilAntrianController;
 use App\Http\Controllers\DaftarAntrianController;
 use App\Http\Controllers\DisplayAntrianController;
+use App\Http\Controllers\ManagementController;
 
 Route::get('/display/antrian', [DisplayAntrianController::class, 'index'])->name('display');
 
@@ -52,6 +53,7 @@ Route::group(['middleware' => ['auth', 'ceklevel:ocs']], function() {
 
 Route::group(['middleware' => ['auth', 'ceklevel:admin']], function() {
     route::get('/dashboard/admin', [DashboardController::class, 'dash_admin']);
+    Route::get('/managementUser', [ManagementController::class, 'index'])->name('managementUser')->middleware('auth');
     Route::get('/daftar/antrian/admin', [DaftarAntrianController::class, 'da_admin']);
     route::get('/setting/admin', [AmbilAntrianController::class, 'setting'])->name('setting')->middleware('auth');
     route::get('/setting/admin/save', [AmbilAntrianController::class, 'saveSetting'])->name('saveSetting')->middleware('auth');
