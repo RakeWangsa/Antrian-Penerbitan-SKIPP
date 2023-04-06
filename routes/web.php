@@ -56,6 +56,8 @@ Route::group(['middleware' => ['auth', 'ceklevel:admin']], function() {
     Route::get('/managementUser', [ManagementController::class, 'index'])->name('managementUser')->middleware('auth');
     Route::get('/tambahOperator/{operator}', [ManagementController::class, 'tambah'])->name('tambahOperator')->middleware('auth');
     Route::post('/tambahOperator', [ManagementController::class, 'store'])->middleware('auth');
+    Route::get('/editUser/{id}', [ManagementController::class, 'editUser'])->name('editUser')->middleware('auth');
+    Route::get('/updateUser/{id}', [ManagementController::class, 'updateUser'])->name('updateUser');
     Route::get('/hapusUser/{id}', [ManagementController::class, 'hapusUser'])->name('hapusUser')->middleware('auth');
     Route::get('/daftar/antrian/admin', [DaftarAntrianController::class, 'da_admin']);
     route::get('/setting/admin', [AmbilAntrianController::class, 'setting'])->name('setting')->middleware('auth');
